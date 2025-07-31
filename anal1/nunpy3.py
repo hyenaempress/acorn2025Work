@@ -26,8 +26,7 @@ print(x , x.astype, x.dtype)  # 배열 출력, 타입 확인
 
 
 x = np.array([[1, 2], [3, 4]], dtype=np.float64)  # 배열 생성, 타입 지정
-
-# = np.array(5,9).reshape(2, 2)  # 3x3 배열 생성 
+# x= np.array(5,9).reshape(2, 2)  # 3x3 배열 생성 
 y = np.array([5, 9, 7, 1]).reshape(2, 2)  # 리스트로 감싸기 + 4개 요소 필요
 
 
