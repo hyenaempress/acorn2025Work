@@ -1,2 +1,4 @@
 # acorn2025Work
 acorn2025 현대로템 선도기업 아카데미(데이터분석)
+
+7/31 표준편차 구하기 [text](anal1/numpy1.py)
