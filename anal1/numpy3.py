@@ -57,8 +57,8 @@ print("배열 곱하기:")
 print(x * y)  # 배열의 각 요소를 곱함
 #머신러닝을 할려면 곱하기 필수 
 print(np.multiply(x, y))  # NumPy의 multiply 함수 사용
-
 print(x.dot(y))  # 행렬 곱셈 내적연산 
+print()
 #내적연산이란?
 #내적연산은 두 벡터의 곱을 계산하는 연산으로, 벡터의 방향과 크기를 고려하여 결과를 도출
 #내적연산은 머신러닝에서 자주 사용되는 연산으로, 벡터의 유사도를 계산하는 데 사용
@@ -69,3 +69,84 @@ print(x.dot(y))  # 행렬 곱셈 내적연산
 #4. **머신러닝 모델**: 많은 머신러닝 모델에서 핵심          
 #5. **선형대수학**: 선형대수학의 기초로, 벡터와 행렬의 연산을 이해하는 데 중요
 #6. **다양한 응용**: 이미지 처리, 자연어 처리 등 다양한 분야에서 활용
+#아다마르곱, 내적
+
+#8월 1일 교육 
+
+v = np.array([9,10])# 아다마르 곱 (요소별 곱셈)
+w = np.array([11,12])
+print("아다마르 곱:")
+print(v * w)  # 요소별 곱셈
+print(v.dot(w))  # 내적 연산
+print(np.multiply(v, w))  # NumPy의 multiply 함수 사용 이쪽이 훨씬 빠르게 값이 나옴 C를 운영중이기 떄문에
+#성분 곱이 가능하다.
+#양수가 나왔으니 그래프상에서 둔각은 아니다 
+#아다마르 곱은 무엇일까?
+#아다마르 곱은 두 벡터의 각 요소를 곱하는       
+#연산으로, 벡터의 방향과 크기를 고려하지 않고 요소별로 곱함
+#아다마르 곱은 머신러닝에서 자주 사용되는 연산으로, 벡터의 유사도를 계산하는 데 사용
+#아다마르 곱의 장점은 무엇일까?
+#1. **요소별 연산**: 벡터의 각 요소를 독립적으로 곱하여 계산
+#2. **간단한 계산**: 벡터의 방향과 크기를 고려          
+#3. **효율성**: 빠르게 계산 가능
+#4. **머신러닝 모델**: 많은 머신러닝 모델에서 핵심      
+#5. **선형대수학**: 선형대수학의 기초로, 벡터와 행렬의 연산을 이해하는 데 중요
+#6. **다양한 응용**: 이미지 처리, 자연어 처리 등 다양한 분야에서 활용
+
+
+print(np.dot(v, w))  # 내적 연산
+print(np.dot(x, v))  # x와 v의 내적 연산
+print(np.dot(x, y))  # x와 y의 내적 연산 2행2열임으로 스칼라값이 나옴
+
+print   ("=== 유용한 함수 ===")
+print(x)
+print(np.sum(x))  # 배열의 모든 요소의 합
+print(np.sum(x, axis= 0)) # 각 열의 합
+print(np.sum(x, axis=1))  # 각 행의 합
+#축이 없으면 전체 더하기를 해야하지만 축을 설정해준것 
+print(np.min(x), '' , np.max (x))  # 배열의 평균
+print(np.argmax(x), '' , np.atgmax (x))  # 배열의 최대값과 최소값의 인덱스
+#인덱스를 리턴하는데 그 인덱스가 많이 사용됨 
+print(np.cumsum(x))  # 누저적 합
+print(np.cumprod(x))  # 누적 곱
+print() 
+print("=== 문자열 배열 ===")
+names = np.array(['tom', 'james', 'oscar', 'tom', 'oscar'])
+names2 = np.array(['tom', 'page', 'jhon'])
+
+print(np.unique(names))  # 중복 제거
+print(np.intersect1d(names, names2))  # 교집합
+print(np.union1d(names, names2))  # 합집합  
+print(np.setdiff1d(names, names2))  # 차집합
+print(np.setdiff1d(names, names2, assume_unique=True))  # 차집합
+print(np.in1d(names, names2))  # 포함 여부
+print()  
+
+print("=== 전치 트랜스포즈 행과 열을 바꾸어줌 ===")
+print(x)
+print(x.T)  # 전치 행렬
+print(np.transpose(x))  # 전치 행렬
+print(np.linalg.inv(x))  # 역행렬 (x가 정방행렬일 때만 가능)
+print(np.linalg.det(x))  # 행렬식 (determinant)
+print(np.linalg.eig(x))  # 고유값과 고유벡터
+
+arr = np.arange(1,15).reshape(3, 5)  # 1부터 14까지의 숫자를 3x5 배열로 생성
+print(arr)              
+print("원본 배열:")
+print(arr.T)    # 전치 행렬
+print(np.dot(arr, arr.T))  # 그냥 arr만 있으면 안되는데, T를 넣으면서 내적이 가능해진다
+
+
+#차원 축소 2차원을 1차원으로 떨어뜨림 
+print(arr.flatten())  # 1차원 배열로 변환
+print(arr.ravel())  # 1차원 배열로 변환 (메모리를 공유)
+print(arr.reshape(1, -1))  # 1행으로 변환
+print(arr.reshape(-1, 1))  # 1열로 변환
+
+
+
+
+
+
+
+
