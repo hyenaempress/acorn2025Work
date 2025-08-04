@@ -266,6 +266,35 @@ def findMax(a,n):
 valuse = [7,9,15,42,33,22]
 print(findMax(valuse, len(valuse)))
 
+def findMax2(a, n):
+    # 종료 조건: 원소가 1개만 남았을 때
+    if n == 1:
+        return a[0]
+    
+    # 재귀: n-1개의 최대값 구하기
+    max_of_rest = findMax2(a, n-1)
+    current = a[n-1]  # 현재값
+    
+    # 직접 비교해서 큰 값 리턴
+    if current > max_of_rest:
+        return current
+    else:
+        return max_of_rest
+
+values = [7, 9, 15, 42, 33, 22]
+print(findMax2(values, len(values)))  # 출력: 42
+
+def findMax3(a, n):
+    if n == 1:
+        return a[0]
+    
+    max_of_rest = findMax3(a, n-1)
+    # 삼항 연산자로 비교
+    return a[n-1] if a[n-1] > max_of_rest else max_of_rest
+values = [7, 9, 15, 42, 33, 22]
+print(findMax3(values, len(values)))  # 출력: 42
+# 조건문을 한 줄로 간단하게 표현하는 연산자를 삼항 연산자라고 한다 
+
 
 print("\n" + "=" * 60)
 print("최종 시간 복잡도 분석")
