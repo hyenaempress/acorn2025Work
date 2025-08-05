@@ -295,7 +295,6 @@ values = [7, 9, 15, 42, 33, 22]
 print(findMax3(values, len(values)))  # 출력: 42
 # 조건문을 한 줄로 간단하게 표현하는 연산자를 삼항 연산자라고 한다 
 
-
 print("\n" + "=" * 60)
 print("최종 시간 복잡도 분석")
 print("=" * 60)
