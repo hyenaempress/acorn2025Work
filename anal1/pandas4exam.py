@@ -1,3 +1,4 @@
+from pandas import DataFrame, Series
 import pandas as pd
 import numpy as np
 
@@ -15,6 +16,7 @@ print("-" * 30)
 #    np.random.randn(9, 4) 사용
 # 여기에 코드 작성:
 
+test1 = DataFrame(np.random.randn(9,4))
 
 # b) a에서 생성한 DataFrame의 칼럼 이름을 No1, No2, No3, No4로 지정하시오
 # 여기에 코드 작성:
