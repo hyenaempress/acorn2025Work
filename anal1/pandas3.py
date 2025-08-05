@@ -68,5 +68,42 @@ print(df_row)
 df_col = df_row.unstack() #행 -> 열로 복원 
 print(df_col)
 
+import pandas as pd
 #구간 설정 한번 해보겠습니다. 
+#범주화 하는 것 
+#구간 설정 : 연속형 자료를 범주화 시키는 것 
+price = [10.3, 5.5, 7.8, 3.6]
+cut = [3, 7, 9, 11] #구간 기준 값으로으로 둔다 
+resul_cut = pd.cut(price,cut)
+print(resul_cut)
 
+#소괄호는 초과고 대괄호는 이하입니다.  
+#범주화 된 것 입니다. 
+print(pd.value_counts(resul_cut))
+#구간 설정을 이런 방법으로 할 수 있습니다
+datas = pd.Series(np.arange(1, 10001))
+print(datas)
+print(datas.head(3))
+print(datas.tail(3)) #데이터가 많으면 이런 방법으로도 볼 수 있습니다. 
+
+resul_cut2 = pd.qcut(datas, 3) #기준 값 안주고 자르는 법 세개의 값을
+print(resul_cut2) #세개의 구간으로 나눈것이 출력됩니다
+print(pd.value_counts(resul_cut2))
+#문제 나오면 쓸 수 있어야 합니다. 
+
+#그룹별 처리하는 것도 보여줌 
+print('-------------')
+group_col = datas.groupby(resul_cut2) # 세개의 그룹으로 
+# print(group_col)
+print(group_col.agg(['count','mean','std','min'])) #그룹별 소계를 구할때 agg를 쓸 수 있습니다. 건수 그힐가얌 키은트, 확인 할 수 있음 
+#이거 말고 더 좋은 사람이 있다고 하는데 뭐지요 ? 그건 피봇 테이블입니다. 그런데 일단 함수로 만들수 있어요 
+def myFunc(gr):
+    return{ 'count':gr.count(),
+            'mean':gr.mean(),
+            'std':gr.std(),
+            'min':gr.min()
+            }     
+print(group_col.apply(myFunc))
+print(group_col.apply(myFunc).unstack)
+
+#문제 
