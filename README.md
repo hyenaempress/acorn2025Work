@@ -1,5 +1,4 @@
-
-  ## 📄 라이센스 및 이용 안내
+## 📄 라이센스 및 이용 안내
 
 본 자료는 수업 내용을 재가공하여 정리한 학습 노트와 실습/예제 파일입니다.
 
@@ -11,9 +10,7 @@
 - ❌ 무단 배포 및 판매 금지
 
 **📧 문의사항이 있으시면 언제든지 연락주세요.**
-
 - 문의 catnaro16@gmail.com
-
 - 수업 acorn2025 현대로템 선도기업 아카데미(데이터분석)
 
 # 📚 Home
@@ -44,7 +41,7 @@
 - [17.00 이상치와 결측치 가이드](alnlnote/gide_note/17.00%20이상치와%20결측치%20가이드.md)
 - [17.01 판다스 & 넘파이 라이브러리 함수](alnlnote/gide_note/17.01%2017번%20판다스%20&%20넘파이%20라이브러리%20함수%20가이드.md)
 - [17.02 pandas 문제 5번 6번 핵심 이해](alnlnote/gide_note/17.02%20pandas%20문제%205번%206번%20핵심%20이해.md)
-  
+
 ## 🧮 알고리즘 시리즈
 - [11. 알고리즘 기초](alnlnote/gide_note/11.%20알고리즘%20기초.md)
 - [11.01 재귀와 삼항 연산자](alnlnote/gide_note/11.01%20재귀(Recursion)와%20삼항%20연산자%20정리.md)
@@ -58,11 +55,9 @@
 - [11.09 그래프 알고리즘 쉽게 보기](alnlnote/gide_note/11.09%20그래프%20알고리즘%20(쉽게%20보기).md)
 - [11.10 알고리즘 유니버스](alnlnote/gide_note/11.10%20알고리즘%20유니버스.md)
 
-## 🌐 추가 힉습 
+## 🌐 추가 학습 
 - [15. 청크 처리 알고리즘 분석 (알고리즘 유니버스 관점)](alnlnote/gide_note/15.%20청크(Chunk)%20처리%20알고리즘%20분석%20-%20알고리즘%20유니버스%20관점.md)
 
 ## 위키 문서 참조 
 - https://github.com/hyenaempress/acorn2025Work/wiki
-
-
--실습 파일  https://github.com/hyenaempress/acorn2025Work/tree/main/anal1 
+- 실습 파일: https://github.com/hyenaempress/acorn2025Work/tree/main/anal1
