@@ -1,0 +1,364 @@
+#17.03 📊 이상치와 결측치 가이드
+
+> **데이터 분석의 첫걸음: 데이터 품질 문제 이해하고 해결하기**
+-판다스에서 데이터 정제를 할 때 가장 중요한 포인트 
+
+---
+
+## 🎯 **핵심 개념 정리**
+
+### **결측치 (Missing Values)** 
+- **정의**: 데이터에서 **값이 비어있는** 상태
+- **표현**: `NaN` (Not a Number), `None`, 빈 문자열 등
+- **원인**: 데이터 수집 오류, 응답 거부, 시스템 장애 등
+- **영향**: 분석 결과 왜곡, 모델 성능 저하
+
+### **이상치 (Outliers)**
+- **정의**: 다른 데이터들과 비교했을 때 **너무 크거나 작아서** 전체 분포에서 벗어나는 값
+- **특징**: 통계적으로 극단적인 값
+- **원인**: 측정 오류, 입력 실수, 특별한 상황
+- **영향**: 평균값 왜곡, 분산 증가, 모델 편향
+
+---
+
+## 🔍 **결측치 탐지 및 처리**
+
+### **1. 결측치 확인하기**
+
+```python
+import pandas as pd
+import numpy as np
+
+# 샘플 데이터 생성
+data = {
+    '이름': ['김철수', '이영희', None, '박민수', '최지혜'],
+    '나이': [25, np.nan, 30, 28, 24],
+    '연봉': [3000, 4500, np.nan, 5200, None],
+    '부서': ['개발', '마케팅', '개발', '', '인사']
+}
+df = pd.DataFrame(data)
+
+# 결측치 확인
+print("📋 기본 데이터:")
+print(df)
+
+print("\n🔍 결측치 확인:")
+print(df.isnull())  # True/False로 결측치 위치 확인
+
+print("\n📊 각 열별 결측치 개수:")
+print(df.isnull().sum())
+
+print("\n💯 결측치 비율 (%):") 
+print((df.isnull().sum() / len(df)) * 100)
+```
+
+### **2. 결측치 처리 방법**
+
+#### **방법 1: 삭제하기** 
+```python
+# 결측치가 포함된 행 전체 삭제
+df_drop_rows = df.dropna()
+print("행 삭제 후:", df_drop_rows.shape)
+
+# 결측치가 포함된 열 전체 삭제  
+df_drop_cols = df.dropna(axis=1)
+print("열 삭제 후:", df_drop_cols.shape)
+
+# 특정 열의 결측치만 고려해서 삭제
+df_drop_specific = df.dropna(subset=['나이'])
+print("나이 결측치만 삭제:", df_drop_specific.shape)
+```
+
+#### **방법 2: 채워넣기 (Imputation)**
+```python
+# 0으로 채우기
+df_fill_zero = df.fillna(0)
+
+# 평균값으로 채우기 (숫자형 데이터)
+df['나이'] = df['나이'].fillna(df['나이'].mean())
+
+# 최빈값으로 채우기 (범주형 데이터)
+df['부서'] = df['부서'].fillna(df['부서'].mode()[0])
+
+# 이전값으로 채우기
+df_ffill = df.fillna(method='ffill')
+
+# 다음값으로 채우기
+df_bfill = df.fillna(method='bfill')
+```
+
+### **3. 고급 결측치 처리**
+```python
+# 조건부 채우기
+df.loc[df['부서'].isnull(), '부서'] = '미지정'
+
+# 다른 열의 값에 따라 채우기
+df['연봉'] = df.groupby('부서')['연봉'].transform(
+    lambda x: x.fillna(x.mean())
+)
+```
+
+---
+
+## ⚠️ **이상치 탐지 및 처리**
+
+### **1. 이상치 탐지 방법**
+
+#### **방법 1: 통계적 방법 (Z-score)**
+```python
+# 연봉 데이터로 이상치 탐지
+salaries = [3000, 3200, 2800, 3100, 50000, 3300, 2900]  # 50000이 이상치
+df_salary = pd.DataFrame({'연봉': salaries})
+
+# Z-score 계산
+df_salary['z_score'] = (df_salary['연봉'] - df_salary['연봉'].mean()) / df_salary['연봉'].std()
+
+# Z-score가 ±3을 넘으면 이상치로 판단
+outliers_z = df_salary[abs(df_salary['z_score']) > 3]
+print("Z-score 이상치:")
+print(outliers_z)
+```
+
+#### **방법 2: IQR (사분위수 범위) 방법**
+```python
+# IQR 방법으로 이상치 탐지
+Q1 = df_salary['연봉'].quantile(0.25)  # 1사분위수
+Q3 = df_salary['연봉'].quantile(0.75)  # 3사분위수
+IQR = Q3 - Q1
+
+# 이상치 경계값 설정
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+
+# 이상치 찾기
+outliers_iqr = df_salary[
+    (df_salary['연봉'] < lower_bound) | 
+    (df_salary['연봉'] > upper_bound)
+]
+print(f"IQR 이상치 (범위: {lower_bound:.0f} ~ {upper_bound:.0f}):")
+print(outliers_iqr)
+```
+
+#### **방법 3: 백분위수 방법**
+```python
+# 상위/하위 5% 이상치로 판단
+lower_percentile = df_salary['연봉'].quantile(0.05)
+upper_percentile = df_salary['연봉'].quantile(0.95)
+
+outliers_percentile = df_salary[
+    (df_salary['연봉'] < lower_percentile) | 
+    (df_salary['연봉'] > upper_percentile)
+]
+print("백분위수 이상치:")
+print(outliers_percentile)
+```
+
+### **2. 이상치 처리 방법**
+
+#### **방법 1: 삭제하기**
+```python
+# 이상치 제거
+df_clean = df_salary[
+    (df_salary['연봉'] >= lower_bound) & 
+    (df_salary['연봉'] <= upper_bound)
+]
+print("이상치 제거 후:", df_clean)
+```
+
+#### **방법 2: 변환하기**
+```python
+# 경계값으로 치환 (Capping)
+df_salary['연봉_처리'] = df_salary['연봉'].copy()
+df_salary.loc[df_salary['연봉_처리'] > upper_bound, '연봉_처리'] = upper_bound
+df_salary.loc[df_salary['연봉_처리'] < lower_bound, '연봉_처리'] = lower_bound
+
+print("경계값 치환 후:")
+print(df_salary)
+```
+
+#### **방법 3: 로그 변환**
+```python
+# 로그 변환으로 이상치 완화
+df_salary['연봉_log'] = np.log(df_salary['연봉'])
+print("로그 변환 후:")
+print(df_salary[['연봉', '연봉_log']])
+```
+
+---
+
+## 📊 **시각화로 확인하기**
+
+```python
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# 한글 폰트 설정 (Windows)
+plt.rcParams['font.family'] = 'Malgun Gothic'
+plt.rcParams['axes.unicode_minus'] = False
+
+# 서브플롯 생성
+fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+
+# 1. 결측치 히트맵
+sns.heatmap(df.isnull(), cmap='viridis', cbar=True, ax=axes[0,0])
+axes[0,0].set_title('결측치 분포')
+
+# 2. 박스플롯으로 이상치 확인
+df_salary.boxplot(column='연봉', ax=axes[0,1])
+axes[0,1].set_title('연봉 박스플롯 (이상치 확인)')
+
+# 3. 히스토그램
+df_salary['연봉'].hist(bins=20, ax=axes[1,0])
+axes[1,0].set_title('연봉 분포')
+
+# 4. 산점도
+axes[1,1].scatter(range(len(df_salary)), df_salary['연봉'])
+axes[1,1].set_title('연봉 산점도')
+axes[1,1].set_xlabel('인덱스')
+axes[1,1].set_ylabel('연봉')
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## 🚀 **실무에서의 접근법**
+
+### **1. 체계적인 데이터 품질 검사**
+
+```python
+def data_quality_report(df):
+    """데이터 품질 리포트 생성"""
+    print("=" * 50)
+    print("📋 데이터 품질 리포트")
+    print("=" * 50)
+    
+    print(f"📊 전체 데이터 크기: {df.shape}")
+    print(f"🔢 전체 데이터 개수: {df.size:,}")
+    
+    print("\n📈 각 열별 정보:")
+    print(df.info())
+    
+    print("\n❌ 결측치 현황:")
+    missing_stats = df.isnull().sum()
+    missing_percent = (missing_stats / len(df)) * 100
+    missing_report = pd.DataFrame({
+        '결측치_개수': missing_stats,
+        '결측치_비율(%)': missing_percent.round(2)
+    })
+    print(missing_report[missing_report['결측치_개수'] > 0])
+    
+    print("\n⚠️ 수치형 데이터 이상치 확인:")
+    numeric_cols = df.select_dtypes(include=[np.number]).columns
+    for col in numeric_cols:
+        Q1 = df[col].quantile(0.25)
+        Q3 = df[col].quantile(0.75)
+        IQR = Q3 - Q1
+        lower_bound = Q1 - 1.5 * IQR
+        upper_bound = Q3 + 1.5 * IQR
+        
+        outliers = df[(df[col] < lower_bound) | (df[col] > upper_bound)]
+        if len(outliers) > 0:
+            print(f"  {col}: {len(outliers)}개 이상치 발견")
+
+# 리포트 실행
+data_quality_report(df)
+```
+
+### **2. 자동화된 전처리 파이프라인**
+
+```python
+class DataPreprocessor:
+    """데이터 전처리 자동화 클래스"""
+    
+    def __init__(self):
+        self.missing_strategy = {}
+        self.outlier_strategy = {}
+    
+    def handle_missing(self, df, strategy='auto'):
+        """결측치 처리"""
+        processed_df = df.copy()
+        
+        for col in df.columns:
+            missing_ratio = df[col].isnull().sum() / len(df)
+            
+            if missing_ratio > 0.5:  # 50% 이상 결측치면 열 삭제 고려
+                print(f"⚠️ {col} 열의 결측치 비율이 {missing_ratio:.2%}로 높습니다.")
+                
+            elif df[col].dtype in ['int64', 'float64']:  # 숫자형
+                processed_df[col] = df[col].fillna(df[col].median())
+                
+            else:  # 범주형
+                processed_df[col] = df[col].fillna(df[col].mode()[0] if len(df[col].mode()) > 0 else '미지정')
+        
+        return processed_df
+    
+    def handle_outliers(self, df, method='iqr'):
+        """이상치 처리"""
+        processed_df = df.copy()
+        numeric_cols = df.select_dtypes(include=[np.number]).columns
+        
+        for col in numeric_cols:
+            if method == 'iqr':
+                Q1 = df[col].quantile(0.25)
+                Q3 = df[col].quantile(0.75)
+                IQR = Q3 - Q1
+                lower_bound = Q1 - 1.5 * IQR
+                upper_bound = Q3 + 1.5 * IQR
+                
+                # 경계값으로 치환
+                processed_df[col] = df[col].clip(lower_bound, upper_bound)
+        
+        return processed_df
+
+# 사용 예시
+preprocessor = DataPreprocessor()
+df_processed = preprocessor.handle_missing(df)
+df_final = preprocessor.handle_outliers(df_processed)
+```
+
+---
+
+## 💡 **핵심 요약 및 실무 팁**
+
+### **🎯 결측치 처리 가이드라인**
+- **10% 미만**: 삭제 고려
+- **10-30%**: 대체값 사용 (평균, 중간값, 최빈값)
+- **30% 이상**: 열 삭제 또는 고급 imputation 기법 사용
+
+### **🎯 이상치 처리 가이드라인**
+- **측정 오류**: 삭제하거나 올바른 값으로 수정
+- **자연스러운 극값**: 유지하되 별도 분석
+- **모델 성능에 악영향**: 변환(로그, 제곱근) 또는 경계값 치환
+
+### **🎯 처리 순서**
+1. **탐색적 데이터 분석** (EDA)
+2. **결측치 패턴 분석**
+3. **이상치 탐지 및 원인 분석**
+4. **도메인 지식 활용한 판단**
+5. **처리 후 검증**
+
+### **⚡ 자주 사용하는 함수들**
+```python
+# 결측치 관련
+df.isnull().sum()           # 결측치 개수
+df.dropna()                 # 결측치 삭제
+df.fillna(값)               # 결측치 채우기
+
+# 이상치 관련  
+df.describe()               # 기초통계량 확인
+df.quantile([0.25, 0.75])  # 사분위수
+df.boxplot()                # 박스플롯 그리기
+```
+
+---
+
+## 🎉 **마무리**
+
+이상치와 결측치는 **데이터 분석의 첫 관문**입니다! 
+- ✅ 결측치 = 비어있는 데이터 → **탐지하고 적절히 처리**
+- ✅ 이상치 = 극단적인 값 → **원인 파악 후 처리 방법 결정**
+- ✅ **도메인 지식**과 **데이터 특성**을 고려한 처리가 핵심!
+
+**다음 단계**: 깨끗해진 데이터로 본격적인 분석과 모델링 시작! 💪
