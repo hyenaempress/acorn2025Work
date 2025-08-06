@@ -1,0 +1,424 @@
+# 📊 판다스 문제 5번 6번 핵심 이해 
+
+## 🎯 목표
+타이타닉 데이터와 CSV 파일 처리를 통해 pandas의 핵심 기능들을 완전히 마스터하자!
+-핵심 : 데이터 구간, 피벗 
+
+---
+
+## 📋 **문제 5: 타이타닉 승객 데이터 분석**
+
+### 🚀 **1단계: 파일 읽기 & 데이터 구조 파악**
+
+```python
+import pandas as pd
+import numpy as np
+
+# 1) 타이타닉 데이터 읽기
+df = pd.read_csv('titanic_data.csv', header=None)
+
+# 2) 데이터 구조 파악 - 이게 핵심이야!
+print("📊 데이터 기본 정보")
+print(f"데이터 크기: {df.shape}")  # (행수, 열수)
+print("\n처음 5행:")
+print(df.head())
+
+print("\n각 열의 데이터 타입:")
+print(df.dtypes)
+
+print("\n결측치 확인:")
+print(df.isnull().sum())
+```
+
+### 🔍 **타이타닉 데이터 열 구조 완전 정리**
+
+| 열 번호 | 열 이름 | 설명 | 예시 값 |
+|---------|---------|------|---------|
+| **0** | Survived | 생존 여부 | 0=사망, 1=생존 |
+| **1** | Pclass | 승선 등급 | 1=1등석, 2=2등석, 3=3등석 |
+| **2** | Sex | 성별 | male, female |
+| **3** | Age | 나이 | 22, 38, 26... |
+| **4** | SibSp | 형제자매/배우자 수 | 1, 0, 3... |
+| **5** | Parch | 부모/자식 수 | 0, 1, 2... |
+| **6** | Ticket | 티켓 번호 | A/5 21171, PC 17599... |
+| **7** | Fare | 승선료 | 7.25, 71.83... |
+| **8** | Cabin | 객실 번호 | C85, C123, B96... |
+| **9** | Embarked | 승선지 | C=셰르부르, Q=퀸즈타운, S=사우샘프턴 |
+
+```python
+# ✅ 핵심 열들 확인해보기
+print("생존 여부 분포:")
+print(df[0].value_counts())  # 0열: Survived
+
+print("\n성별 분포:")  
+print(df[2].value_counts())  # 2열: Sex
+
+print("\n승선 등급 분포:")
+print(df[1].value_counts())  # 1열: Pclass
+
+print("\n나이 통계:")
+print(df[3].describe())      # 3열: Age
+```
+
+---
+
+## 🔪 **문제 5-1: cut() 함수로 나이대 구분**
+
+### **cut() 함수 완전 분석**
+
+```python
+# 🎯 cut() 함수의 핵심 원리
+"""
+pd.cut(데이터, bins=구간경계, labels=구간이름)
+
+bins = [1, 20, 35, 60, 150] 의미:
+- (1, 20]: 1초과 20이하 → 소년
+- (20, 35]: 20초과 35이하 → 청년  
+- (35, 60]: 35초과 60이하 → 장년
+- (60, 150]: 60초과 150이하 → 노년
+"""
+
+# 1) 나이대 구간 설정
+bins = [1, 20, 35, 60, 150]
+labels = ["소년", "청년", "장년", "노년"]
+
+# 2) 나이대 구분 실행
+age_groups = pd.cut(df[3], bins=bins, labels=labels)
+print("나이대 구분 결과 (처음 10개):")
+print(age_groups.head(10))
+
+# 3) 생존자수 계산 - 이게 문제에서 원하는 답!
+survival_by_age = df.groupby(age_groups)[0].sum()
+print("\n📊 나이대별 생존자 수:")
+print(survival_by_age)
+
+# 4) 더 자세한 분석 (보너스)
+age_analysis = df.groupby(age_groups).agg({
+    0: ['count', 'sum'],  # 총 인원, 생존자 수
+}).round(2)
+age_analysis.columns = ['총_인원', '생존자_수']
+age_analysis['생존율'] = (age_analysis['생존자_수'] / age_analysis['총_인원'] * 100).round(1)
+print("\n📈 나이대별 상세 분석:")
+print(age_analysis)
+```
+
+### **🚨 cut() 함수 자주 하는 실수들**
+
+```python
+# ❌ 실수 1: 구간 설정 잘못
+bins_wrong = [20, 35, 60]  # 1이 빠짐 → 에러 발생
+# 해결: bins = [1, 20, 35, 60, 150]
+
+# ❌ 실수 2: 라벨 개수 안 맞음  
+labels_wrong = ["소년", "청년"]  # 구간 3개인데 라벨 2개
+# 해결: labels = ["소년", "청년", "장년", "노년"]
+
+# ❌ 실수 3: NaN 값 처리 안 함
+age_clean = df[3].fillna(df[3].median())  # 결측치를 중간값으로 채움
+age_groups_clean = pd.cut(age_clean, bins=bins, labels=labels)
+```
+
+---
+
+## 📊 **문제 5-2: pivot_table() 마스터하기**
+
+### **pivot_table() 완전 분석**
+
+```python
+"""
+df.pivot_table() 핵심 파라미터:
+- values: 집계할 값 (여기서는 생존 여부)
+- index: 행에 배치할 변수 
+- columns: 열에 배치할 변수
+- aggfunc: 집계 함수 ('mean' = 평균 = 생존율)
+"""
+
+# 🎯 1) 성별 vs 승선등급별 생존율
+print("📊 1) 성별 vs 승선등급별 생존율")
+pivot1 = df.pivot_table(
+    values=0,        # 생존 여부 (0열)
+    index=2,         # 성별 (2열) - 행에 배치
+    columns=1,       # 승선등급 (1열) - 열에 배치  
+    aggfunc='mean'   # 평균 = 생존율
+)
+print(pivot1)
+print("\n백분율로 표시:")
+print((pivot1 * 100).round(2))
+
+# 🎯 2) 성별 + 나이대 vs 승선등급별 생존율
+print("\n📊 2) 성별 + 나이대 vs 승선등급별 생존율")
+
+# 먼저 나이대 구분을 데이터프레임에 추가
+df['age_group'] = pd.cut(df[3], bins=bins, labels=labels)
+
+pivot2 = df.pivot_table(
+    values=0,                    # 생존 여부
+    index=[2, 'age_group'],      # 성별 + 나이대 (다중 인덱스)
+    columns=1,                   # 승선등급
+    aggfunc='mean'               # 생존율
+)
+print(pivot2)
+print("\n백분율로 표시 (소수 둘째자리):")
+print((pivot2 * 100).round(2))
+```
+
+### **🎨 pivot_table 고급 활용**
+
+```python
+# 🔥 더 상세한 분석을 위한 다중 집계
+advanced_pivot = df.pivot_table(
+    values=0,
+    index=2,
+    columns=1, 
+    aggfunc=['count', 'sum', 'mean'],  # 총인원, 생존자수, 생존율
+    margins=True  # 총계 추가
+)
+
+print("🎯 고급 피벗 테이블:")
+print(advanced_pivot)
+
+# 🎨 결과를 보기 좋게 정리
+def create_survival_summary(df):
+    """생존 분석 요약 테이블 생성"""
+    summary = df.groupby([df[2], df[1]]).agg({
+        0: ['count', 'sum', 'mean']
+    }).round(3)
+    
+    summary.columns = ['총_승객수', '생존자수', '생존율']
+    summary['사망자수'] = summary['총_승객수'] - summary['생존자수']
+    summary['생존율_백분율'] = (summary['생존율'] * 100).round(1).astype(str) + '%'
+    
+    return summary
+
+print("📈 생존 분석 완전 요약:")
+print(create_survival_summary(df))
+```
+
+---
+
+## 📁 **문제 6: human.csv & tips.csv 처리**
+
+### **문제 6-1: human.csv 완전 정복**
+
+```python
+# 🚀 human.csv 파일 처리 단계별 가이드
+
+# 1) 파일 읽기 및 기본 확인
+df_human = pd.read_csv('human.csv')
+print("📋 human.csv 기본 정보:")
+print(f"크기: {df_human.shape}")
+print(f"열 이름: {list(df_human.columns)}")
+print(f"데이터 타입:\n{df_human.dtypes}")
+
+print("\n처음 5행:")
+print(df_human.head())
+
+print("\n결측치 확인:")
+print(df_human.isnull().sum())
+
+# 2) Group이 NA인 행 삭제 - 핵심!
+print("\n🔥 Group NA 처리 전후 비교:")
+print(f"처리 전 행 수: {len(df_human)}")
+
+df_clean = df_human.dropna(subset=['Group'])  # Group 열의 NA만 체크
+print(f"처리 후 행 수: {len(df_clean)}")
+print(f"삭제된 행 수: {len(df_human) - len(df_clean)}")
+
+# 3) Career, Score 열만 추출
+df_subset = df_clean[['Career', 'Score']]
+print(f"\n📊 추출된 데이터 (크기: {df_subset.shape}):")
+print(df_subset.head())
+
+# 4) 평균 계산
+means = df_subset.mean()
+print(f"\n📈 Career, Score 평균:")
+print(means)
+
+# 5) strip() 함수 활용 예시
+print("\n🧹 strip() 함수 활용:")
+if df_human.dtypes.eq('object').any():  # 문자열 열이 있다면
+    for col in df_human.select_dtypes(include=['object']).columns:
+        print(f"{col} 열의 strip() 적용 예시:")
+        sample_data = df_human[col].dropna().iloc[0] if not df_human[col].dropna().empty else "   sample   "
+        print(f"  원본: '{sample_data}'")
+        print(f"  strip 적용: '{str(sample_data).strip()}'")
+        break
+```
+
+### **strip() 함수 완전 이해**
+
+```python
+# 🎯 strip() 함수 완전 분석
+
+# 예시 데이터
+messy_data = [
+    "  홍길동  \n",
+    "\t김철수\n  ", 
+    "  \n이영희  ",
+    "박민수\t\n"
+]
+
+print("🧹 strip() 함수 효과:")
+for i, data in enumerate(messy_data, 1):
+    print(f"{i}. 원본: {repr(data)}")  # repr()로 숨겨진 문자까지 보기
+    print(f"   정제: {repr(data.strip())}")
+    print()
+
+# 실제 활용 예시
+def clean_string_columns(df, columns):
+    """문자열 열들을 strip으로 정제"""
+    df_copy = df.copy()
+    for col in columns:
+        if df_copy[col].dtype == 'object':
+            df_copy[col] = df_copy[col].astype(str).str.strip()
+    return df_copy
+
+# 사용법
+# df_human_clean = clean_string_columns(df_human, ['Group', 'Career'])
+```
+
+### **문제 6-2: tips.csv 완전 분석**
+
+```python
+# 🍽️ tips.csv 파일 완전 분석
+
+# 1) 파일 읽기
+df_tips = pd.read_csv('tips.csv')
+
+# 2) 파일 정보 확인 - info() 활용
+print("📋 tips.csv 파일 정보:")
+print(df_tips.info())
+
+# 더 상세한 정보
+print(f"\n📊 상세 정보:")
+print(f"행 수: {len(df_tips)}")
+print(f"열 수: {len(df_tips.columns)}")
+print(f"열 이름: {list(df_tips.columns)}")
+print(f"메모리 사용량: {df_tips.memory_usage().sum()} bytes")
+
+# 3) 앞에서 3개 행만 출력 - head(3)
+print(f"\n🔍 처음 3행:")
+print(df_tips.head(3))
+
+# 4) 요약 통계량 - describe()
+print(f"\n📈 요약 통계량:")
+print(df_tips.describe())
+
+# 문자열 열도 포함한 요약
+print(f"\n📊 전체 열 요약 (문자열 포함):")
+print(df_tips.describe(include='all'))
+
+# 5) 흡연자, 비흡연자 수 계산 - value_counts()
+print(f"\n🚭 흡연 여부별 고객 수:")
+if 'smoker' in df_tips.columns:
+    smoker_counts = df_tips['smoker'].value_counts()
+    print(smoker_counts)
+    print(f"비흡연자: {smoker_counts.get('No', 0)}명")
+    print(f"흡연자: {smoker_counts.get('Yes', 0)}명")
+
+# 6) 요일 유일한 값 출력 - unique()
+print(f"\n📅 요일 컬럼의 유일한 값들:")
+day_columns = [col for col in df_tips.columns if 'day' in col.lower()]
+if day_columns:
+    day_col = day_columns[0]
+    unique_days = df_tips[day_col].unique()
+    print(f"{day_col} 열: {unique_days}")
+else:
+    print("요일 관련 컬럼을 찾을 수 없습니다.")
+
+# 모든 열의 unique 값 확인
+print(f"\n🔍 모든 열의 고유값 개수:")
+for col in df_tips.columns:
+    unique_count = df_tips[col].nunique()
+    print(f"{col}: {unique_count}개 고유값")
+    if df_tips[col].dtype == 'object' and unique_count <= 10:
+        print(f"  → 고유값들: {list(df_tips[col].unique())}")
+```
+
+---
+
+## 🎯 **핵심 함수들 요약 정리**
+
+### **1. 데이터 탐색 함수**
+```python
+# 기본 정보
+df.head(n)      # 처음 n행 (기본 5행)
+df.tail(n)      # 마지막 n행
+df.info()       # 데이터 타입, 결측치 정보
+df.describe()   # 요약 통계량
+df.shape        # (행수, 열수)
+df.columns      # 열 이름들
+df.dtypes       # 각 열의 데이터 타입
+
+# 고유값 확인  
+df[col].unique()        # 고유값 배열
+df[col].nunique()       # 고유값 개수
+df[col].value_counts()  # 값별 빈도수
+```
+
+### **2. 결측치 처리**
+```python
+df.isnull()             # 결측치 확인 (True/False)
+df.isnull().sum()       # 각 열별 결측치 개수
+df.dropna()             # 결측치 포함 행 삭제
+df.dropna(subset=['col']) # 특정 열의 결측치만 체크하여 삭제
+df.fillna(value)        # 결측치를 특정 값으로 채우기
+```
+
+### **3. 데이터 변환 & 분석**
+```python
+pd.cut(data, bins, labels)     # 연속형 → 범주형 변환
+df.pivot_table()               # 피벗 테이블 생성
+df.groupby().agg()            # 그룹별 집계
+df[col].str.strip()           # 문자열 양끝 공백 제거
+```
+
+### **4. 계산 함수**
+```python
+df.sum()        # 합계
+df.mean()       # 평균  
+df.median()     # 중간값
+df.std()        # 표준편차
+df.min()        # 최솟값
+df.max()        # 최댓값
+df.count()      # 개수 (결측치 제외)
+```
+
+---
+
+## 🚀 **실전 연습 문제**
+
+### **연습 1: 타이타닉 심화 분석**
+```python
+# 도전 과제: 다음을 한 번에 분석해보자
+# 1) 나이대별, 성별, 등급별 생존율을 3차원으로 분석
+# 2) 가장 생존율이 높은 그룹과 낮은 그룹 찾기
+# 3) 승선료가 생존에 미치는 영향 분석
+
+def advanced_titanic_analysis(df):
+    # 여기에 코드 작성
+    pass
+```
+
+### **연습 2: 나만의 데이터 분석 함수**
+```python
+def analyze_csv(filename):
+    """
+    CSV 파일을 읽어서 기본 분석을 수행하는 함수
+    - 파일 정보, 결측치, 요약통계, 상관관계 등을 한 번에 출력
+    """
+    # 여기에 코드 작성
+    pass
+```
+
+---
+
+## 🎉 **마무리**
+
+이제 pandas의 핵심 기능들을 완전히 이해했어! 
+- **cut()** 으로 데이터 구간화 ✅
+- **pivot_table()** 로 다차원 분석 ✅  
+- **dropna(), value_counts(), unique()** 등 기본 함수들 ✅
+- **strip()** 으로 데이터 정제 ✅
+
+**다음 단계**: 이 지식을 바탕으로 실제 데이터셋으로 프로젝트 해보기! 💪
