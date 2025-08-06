@@ -1,6 +1,6 @@
 ## 📄 라이센스 및 이용 안내
 
-본 자료는 수업 내용을 재가공하여 정리한 학습 노트와 실습/예제 파일입니다.
+📘 이 자료는 현대로템 선도기업 아카데미(2025년, Acorn Academy) 수업 기반으로 제작된 개인 학습 기록입니다.
 
 **📋 이용 조건:**
 - ✅ 개인 학습 및 교육 목적 이용 가능
@@ -8,6 +8,8 @@
 - ✅ 출처 표기 시 공유 가능
 - ❌ 상업적 이용 금지
 - ❌ 무단 배포 및 판매 금지
+This repository is licensed under the **CC BY-NC-SA 4.0**.  
+See [`LICENSE`](./LICENSE) for more details.
 
 **📧 문의사항이 있으시면 언제든지 연락주세요.**
 - 문의 catnaro16@gmail.com
@@ -62,12 +64,4 @@
 - https://github.com/hyenaempress/acorn2025Work/wiki
 - 실습 파일: https://github.com/hyenaempress/acorn2025Work/tree/main/anal1
 - 
-## 📄 License
-
-This repository is for **educational and personal learning purposes** only.  
-- ✅ Free to use for personal study and non-commercial educational activities  
-- ✅ Sharing is allowed **with proper attribution**  
-- ❌ Commercial use or redistribution is strictly prohibited  
-
-For inquiries, please contact: [catnaro16@gmail.com](mailto:catnaro16@gmail.com)
 
