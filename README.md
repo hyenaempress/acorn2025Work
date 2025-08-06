@@ -56,11 +56,11 @@
 - [11.09 그래프 알고리즘 쉽게 보기](alnlnote/gide_note/11.09%20그래프%20알고리즘%20(쉽게%20보기).md)
 - [11.10 알고리즘 유니버스](alnlnote/gide_note/11.10%20알고리즘%20유니버스.md)
 
-## 🌐 추가
+## 🌐 추가 힉습 
 - [15. 청크 처리 알고리즘 분석 (알고리즘 유니버스 관점)](alnlnote/gide_note/15.%20청크(Chunk)%20처리%20알고리즘%20분석%20-%20알고리즘%20유니버스%20관점.md)
 
-위키 문서 참조 
-https://github.com/hyenaempress/acorn2025Work/wiki
+## 위키 문서 참조 
+- https://github.com/hyenaempress/acorn2025Work/wiki
 
 
-https://github.com/hyenaempress/acorn2025Work/tree/main/anal1 실습 파일 
+-실습 파일  https://github.com/hyenaempress/acorn2025Work/tree/main/anal1 
