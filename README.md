@@ -61,3 +61,13 @@
 ## 위키 문서 참조 
 - https://github.com/hyenaempress/acorn2025Work/wiki
 - 실습 파일: https://github.com/hyenaempress/acorn2025Work/tree/main/anal1
+- 
+## 📄 License
+
+This repository is for **educational and personal learning purposes** only.  
+- ✅ Free to use for personal study and non-commercial educational activities  
+- ✅ Sharing is allowed **with proper attribution**  
+- ❌ Commercial use or redistribution is strictly prohibited  
+
+For inquiries, please contact: [catnaro16@gmail.com](mailto:catnaro16@gmail.com)
+
