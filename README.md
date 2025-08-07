@@ -22,10 +22,11 @@ See [`LICENSE`](./LICENSE) for more details.
 - [📚 Home](#-home)
 - [🔢 NumPy](#-numpy)
 - [📐 수치 변환 및 정규화](#-수치-변환-및-정규화)
-- [🐼 Pandas 실전](#-pandas-실전)
+- [🐼 Pandas 기초](#-pandas-기초)
+- [🌐 Pandas 융합 (웹/파일)](#-pandas-융합-웹파일)
 - [📊 데이터 시각화](#-데이터-시각화)
 - [🧮 알고리즘 시리즈](#-알고리즘-시리즈)
-- [🌐 추가 학습](#-추가-학습)
+- [🚀 추가 학습](#-추가-학습)
 - [위키 문서 참조](#위키-문서-참조)
 
 ---
@@ -45,13 +46,15 @@ See [`LICENSE`](./LICENSE) for more details.
 - [07. 로그 변환과 정규화 가이드](alnlnote/gide_note/07.로그%20변환과%20정규화%20가이드.md)
 - [08. NumPy 로그 변환, 정규화와 경사하강법](alnlnote/gide_note/08.%20NumPy%20로그%20변환,%20정규화와%20경사하강법(추가공부).md)
 
-## 🐼 Pandas 실전
+## 🐼 Pandas 기초
 - [09. Pandas 기초](alnlnote/gide_note/09.%20Pandas%20기초.md)
 - [10. 판다스 기능 세부 (1)](alnlnote/gide_note/10.%20판다스%20기능%20세부(1).md)
 - [12. Pandas 핵심 연산 및 데이터 처리](alnlnote/gide_note/12.%20Pandas%20핵심%20연산%20및%20데이터%20처리%20가이드.md)
 - [13. 판다스 연습문제 정리](alnlnote/gide_note/13.판다스%20연습문제%20정리(1).md)
 - [13.01 Pandas merge vs concat](alnlnote/gide_note/13.01%20Pandas%20merge%20vs%20concat%20가이드.md)
 - [14. 판다스 파일 저장 및 읽기 기능 정리](alnlnote/gide_note/14.%20판다스%20파일%20저장%20및%20읽기%20세부%20기능%20정리.md)
+
+## 🌐 Pandas 융합 (웹/파일)
 - [14.1 판다스 파일 I/O 및 청크 처리](alnlnote/gide_note/14.1%20판다스%20파일%20IO%20및%20청크%20처리%20상세%20가이드.md)
 - [16. 웹 크롤링 + pandas 파일 저장/읽기 실습](alnlnote/gide_note/16.%20웹%20크롤링과%20pandas%20파일%20저장읽기%20실습%20정리.md)
 - [17. Pandas 읽어온 데이터를 활용하는 예제](alnlnote/gide_note/17.%20Pandas%20읽어온%20데이터를%20활용하는%20예제와%20설명.md)
@@ -68,7 +71,6 @@ See [`LICENSE`](./LICENSE) for more details.
 ## 📊 데이터 시각화
 - [18. 2차원 데이터 시각화 가이드](alnlnote/gide_note/18.%202차원%20데이터%20시각화%20가이드.md)
 - [18.00 맥플로립 데이터 시각화 기초](alnlnote/gide_note/18.00%20맥플로립%20데이터%20시각화%20기초.md)
-- [18.01 Matplotlib 기하 알고리즘 유니버스 관점으로 본 시각화 대모험](alnlnote/gide_note/18.01%20Matplotlib%20기하%20알고리즘%20유니버스%20관점으로%20본%20시각화%20대모험.md)
 - [18.03 matplotlib 시각화 복합 응용](alnlnote/gide_note/18.03%20matplotlib%20시각화%20복합%20응용.md)
 - [18.04 Seaborn라이브러리를 이용한 통계 시각화 기초](alnlnote/gide_note/18.04%20Seaborn라이브러리를%20이용한%20통계%20시각화%20기초.md)
 
@@ -85,7 +87,7 @@ See [`LICENSE`](./LICENSE) for more details.
 - [11.09 그래프 알고리즘 쉽게 보기](alnlnote/gide_note/11.09%20그래프%20알고리즘%20(쉽게%20보기).md)
 - [11.10 알고리즘 유니버스](alnlnote/gide_note/11.10%20알고리즘%20유니버스.md)
 
-## 🌐 추가 학습 
+## 🚀 추가 학습 
 - [15. 청크 처리 알고리즘 분석 (알고리즘 유니버스 관점)](alnlnote/gide_note/15.%20청크(Chunk)%20처리%20알고리즘%20분석%20-%20알고리즘%20유니버스%20관점.md)
 
 ## 위키 문서 참조 
