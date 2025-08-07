@@ -53,7 +53,6 @@ df = pd.DataFrame(columns=['지역', '온도', '날씨', '최저기온', '최고
 
 """
 
-
 #이제 csv 파일을 읽어서 데이터 프레임에 넣어 봅니다.
 #웹에서 데이터를 얻을 수 있고 시스템에서 얻을 수도 있습니다. 
 df = pd.read_csv("weather.csv", encoding='utf-8')

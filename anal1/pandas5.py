@@ -89,7 +89,7 @@ print(df.tail(3))
 csv_path = 'student.csv'
 df.to_scv(csv_path, index=False)
 
-""""
+
 
 #작성된 csv 파일 사용 : 전체 한방에 처리하기 
 start_all = time.time()
@@ -147,3 +147,5 @@ plt.title('전체 한번에 처리 vs청크로 처리')
 plt.gride(alpha =0.5)
 plt.tight_layout()
 plt.show()
+
+"""

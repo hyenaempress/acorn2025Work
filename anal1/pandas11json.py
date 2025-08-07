@@ -36,7 +36,7 @@ url = "https://raw.githubusercontent.com/pykwon/python/master/seoullibtime5.json
 
 response = urllib.request.urlopen(url) 
 plainText = response.read().decode('utf-8')    
-
+json_data = json.loads(plainText)  # 읽어온 데이터를 제이슨 형식으로 변환 
 
 
 print(json_data)

@@ -99,6 +99,20 @@ plt.show()
 
 fdata = fdata.cumsum() #누적 합계 
 print(fdata.head(3))
+plt.plot(fdata)
+plt.show() # 이렇게 하면 나옵니다 
+
+#위에는 맥플로립을 이용해서 시각화 시킨 것인데 
+
+#pandas 에서 시각화 시키는 방법  
+fdata.plot() 
+fdata.plot(kind='bar')
+fdata.plot(kind='box')
+plt.ylabel("time")
+plt.xlabel("data")
+plt.show
+
+#R보다는 기능이 떨어져서 Cborn 을 많이 사용합니다. 
 
 
 
