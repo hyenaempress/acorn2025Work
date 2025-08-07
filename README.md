@@ -89,7 +89,8 @@ See [`LICENSE`](./LICENSE) for more details.
 
 ## 🚀 추가 학습 
 - [15. 청크 처리 알고리즘 분석 (알고리즘 유니버스 관점)](alnlnote/gide_note/15.%20청크(Chunk)%20처리%20알고리즘%20분석%20-%20알고리즘%20유니버스%20관점.md)
+- [18.01 Matplotlib 기하 알고리즘 유니버스 관점으로 본 시각화 대모험](alnlnote/gide_note/18.01%20Matplotlib%20기하%20알고리즘%20유니버스%20관점으로%20본%20시각화%20대모험.md)
 
-## 위키 문서 참조 (보기 편하지만 업데이트가 좀더 느립니다.)
+## 위키 문서 참조 
 - https://github.com/hyenaempress/acorn2025Work/wiki
 - 실습 파일: https://github.com/hyenaempress/acorn2025Work/tree/main/anal1
