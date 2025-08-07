@@ -60,11 +60,17 @@ See [`LICENSE`](./LICENSE) for more details.
 - [17.02 pandas 문제 5번 6번 핵심 이해](alnlnote/gide_note/17.02%20pandas%20문제%205번%206번%20핵심%20이해.md)
 - [17.03 XML JSON 활용 강의 요약](alnlnote/gide_note/17.03%20XML%20JSON%20활용%20강의%20요약.md)
 - [17.03.01 XML JSON 활용 예제 정리](alnlnote/gide_note/17.03.01%20XML%20JSON%20활용%20예제%20정리.md)
+- [17.03.02 XML 알아보기 - 웹 스크래핑 강의 전체 내용 정리(상품)](alnlnote/gide_note/17.03.02%20XML%20알아보기%20-%20웹%20스크래핑%20강의%20전체%20내용%20정리(상품).md)
+- [17.03.03 XML 불러오기 - 다양한 활용법과 실전 예제](alnlnote/gide_note/17.03.03%20XML%20불러오기%20-%20다양한%20활용법과%20실전%20예제.md)
+- [17.03.04 XML 날짜 데이터 처리 - 실무 예제](alnlnote/gide_note/17.03.04%20XML%20날짜%20데이터%20처리%20-%20실무%20예제.md)
+- [17.04.01 JSON 기초부터 실전까지 - API 시대의 핵심 기술](alnlnote/gide_note/17.04.01%20JSON%20기초부터%20실전까지%20-%20API%20시대의%20핵심%20기술.md)
 
 ## 📊 데이터 시각화
 - [18. 2차원 데이터 시각화 가이드](alnlnote/gide_note/18.%202차원%20데이터%20시각화%20가이드.md)
 - [18.00 맥플로립 데이터 시각화 기초](alnlnote/gide_note/18.00%20맥플로립%20데이터%20시각화%20기초.md)
 - [18.01 Matplotlib 기하 알고리즘 유니버스 관점으로 본 시각화 대모험](alnlnote/gide_note/18.01%20Matplotlib%20기하%20알고리즘%20유니버스%20관점으로%20본%20시각화%20대모험.md)
+- [18.03 matplotlib 시각화 복합 응용](alnlnote/gide_note/18.03%20matplotlib%20시각화%20복합%20응용.md)
+- [18.04 Seaborn라이브러리를 이용한 통계 시각화 기초](alnlnote/gide_note/18.04%20Seaborn라이브러리를%20이용한%20통계%20시각화%20기초.md)
 
 ## 🧮 알고리즘 시리즈
 - [11. 알고리즘 기초](alnlnote/gide_note/11.%20알고리즘%20기초.md)
