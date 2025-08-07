@@ -112,7 +112,7 @@ plt.ylabel("time")
 plt.xlabel("data")
 plt.show
 
-#R보다는 기능이 떨어져서 Cborn 을 많이 사용합니다. 
+#R보다는 기능이 떨어져서 Seaborn 을 많이 사용합니다. 다음시간엔Seaborn 을 사용해서 그래프를 그려봅니다.
 
 
 
