@@ -23,7 +23,7 @@ See [`LICENSE`](./LICENSE) for more details.
 - [🔢 NumPy](#-numpy)
 - [📐 수치 변환 및 정규화](#-수치-변환-및-정규화)
 - [🐼 Pandas 실전](#-pandas-실전)
-- [📊 Matplotlib 시각화](#-matplotlib-시각화)
+- [📊 데이터 시각화](#-데이터-시각화)
 - [🧮 알고리즘 시리즈](#-알고리즘-시리즈)
 - [🌐 추가 학습](#-추가-학습)
 - [위키 문서 참조](#위키-문서-참조)
@@ -61,7 +61,8 @@ See [`LICENSE`](./LICENSE) for more details.
 - [17.03 XML JSON 활용 강의 요약](alnlnote/gide_note/17.03%20XML%20JSON%20활용%20강의%20요약.md)
 - [17.03.01 XML JSON 활용 예제 정리](alnlnote/gide_note/17.03.01%20XML%20JSON%20활용%20예제%20정리.md)
 
-## 📊 Matplotlib 시각화
+## 📊 데이터 시각화
+- [18. 2차원 데이터 시각화 가이드](alnlnote/gide_note/18.%202차원%20데이터%20시각화%20가이드.md)
 - [18.00 맥플로립 데이터 시각화 기초](alnlnote/gide_note/18.00%20맥플로립%20데이터%20시각화%20기초.md)
 - [18.01 Matplotlib 기하 알고리즘 유니버스 관점으로 본 시각화 대모험](alnlnote/gide_note/18.01%20Matplotlib%20기하%20알고리즘%20유니버스%20관점으로%20본%20시각화%20대모험.md)
 

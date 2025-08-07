@@ -103,12 +103,40 @@ plt.show()
 #피겨란 ? 
 
 plt.subplot(2,1,1) # 2행 1열 1번째 영역을 나누는 것입니다. 
+plt.plot(x,y_sin)
+plt.title('사인')
+
 plt.subplot(2,1,2) # 2행 1열 2번째 영역을 나누는 것입니다. 
 plt.plot(x,y_cos)
 plt.title('코사인')
 plt.show()
 
 
+#오후 수업 시작 (2시 30분)
+
+print()
+irum = ['a', 'b', 'c', 'd', 'e']
+kor = [ 80, 50, 70, 70, 90]
+eng = [ 60, 80, 70, 60, 90]
+plt.plot(irum, kor, 'ro-')
+plt.plot(irum, eng, 'bo-')
+plt.ylim([0, 100])
+plt.legend(['국어', '영어'])
+plt.grid(True)
+fig = plt.gcf()
+plt.show()
+fig.savefig('result.png') #이런식으로 데이터 저장도 가능합니다. 
+
+#PNG로 저장하면 동적이니까 
+#자바 스크립 라이브러리로 출력도 가능 
+#chart.js (장고 등을 이용해서 뽑아 줄 수 있습니다) 이 이외로도 많
+#게시글은 토스트 유아이도 있습니다
+
+from matplotlib.image import imread 
+#이걸로 읽을수있음
+img = imread('result.png')
+plt.imshow(img)
+plt.show()
 
 
 
