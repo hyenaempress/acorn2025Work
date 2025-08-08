@@ -1,0 +1,105 @@
+아래 자료는 실습을 위해 가상으로 만들어진 자료임을 밝힙니다.
+
+create table sangdata(
+code int primary key,
+sang varchar(20),
+su int,
+dan int);                    참고 : 한글이 깨질 경우 ... dan int)charset=utf8;
+
+insert into sangdata values(1,'장갑',3,10000);
+insert into sangdata values(2,'벙어리장갑',2,12000);
+insert into sangdata values(3,'가죽장갑',10,50000);
+insert into sangdata values(4,'가죽점퍼',5,650000);
+
+
+create table buser(
+buserno int primary key, 
+busername varchar(10) not null,
+buserloc varchar(10),
+busertel varchar(15));
+
+insert into buser values(10,'총무부','서울','02-100-1111');
+insert into buser values(20,'영업부','서울','02-100-2222');
+insert into buser values(30,'전산부','서울','02-100-3333');
+insert into buser values(40,'관리부','인천','032-200-4444');
+
+
+create table jikwon(
+jikwonno int primary key,
+jikwonname varchar(10) not null,
+busernum int not null,
+jikwonjik varchar(10) default '사원', 
+jikwonpay int,
+jikwonibsail date,
+jikwongen varchar(4),
+jikwonrating char(3),
+CONSTRAINT ck_jikwongen check(jikwongen='남' or jikwongen='여'));
+
+insert into jikwon values(1,'홍길동',10,'이사',9900,'2008-09-01','남','a');
+insert into jikwon values(2,'한송이',20,'부장',8800,'2010-01-03','여','b');
+insert into jikwon values(3,'이순신',20,'과장',7900,'2010-03-03','남','b');
+insert into jikwon values(4,'이미라',30,'대리',4500,'2014-01-04','여','b');
+insert into jikwon values(5,'이순라',20,'사원',3000,'2017-08-05','여','b');
+insert into jikwon values(6,'김이화',20,'사원',2950,'2019-08-05','여','c');
+insert into jikwon values(7,'김부만',40,'부장',8600,'2009-01-05','남','a');
+insert into jikwon values(8,'김기만',20,'과장',7800,'2011-01-03','남','a');
+insert into jikwon values(9,'채송화',30,'대리',5000,'2013-03-02','여','a');
+insert into jikwon values(10,'박치기',10,'사원',3700,'2016-11-02','남','a');
+insert into jikwon values(11,'김부해',30,'사원',3900,'2016-03-06','남','a');
+insert into jikwon values(12,'박별나',40,'과장',7200,'2011-03-05','여','b');
+insert into jikwon values(13,'박명화',10,'대리',4900,'2013-05-11','남','a');
+insert into jikwon values(14,'박궁화',40,'사원',3400,'2016-01-15','여','b');
+insert into jikwon values(15,'채미리',20,'사원',4000,'2016-11-03','여','a');
+insert into jikwon values(16,'이유가',20,'사원',3000,'2016-02-01','여','c');
+insert into jikwon values(17,'한국인',10,'부장',8000,'2006-01-13','남','c');
+insert into jikwon values(18,'이순기',30,'과장',7800,'2011-11-03','남','a');
+insert into jikwon values(19,'이유라',30,'대리',5500,'2014-03-04','여','a');
+insert into jikwon values(20,'김유라',20,'사원',2900,'2019-12-05','여','b');
+insert into jikwon values(21,'장비',20,'사원',2950,'2019-08-05','남','b');
+insert into jikwon values(22,'김기욱',40,'대리',5850,'2013-02-05','남','a');
+insert into jikwon values(23,'김기만',30,'과장',6600,'2015-01-09','남','a');
+insert into jikwon values(24,'유비',20,'대리',4500,'2014-03-02','남','b');
+insert into jikwon values(25,'박혁기',10,'사원',3800,'2016-11-02','남','a');
+insert into jikwon values(26,'김나라',10,'사원',3500,'2016-06-06','남','b');
+insert into jikwon values(27,'박하나',20,'과장',5900,'2012-06-05','여','c');
+insert into jikwon values(28,'박명화',20,'대리',5200,'2013-06-01','여','a');
+insert into jikwon values(29,'박가희',10,'사원',4100,'2016-08-05','여','a');
+insert into jikwon values(30,'최미숙',30,'사원',4000,'2015-08-03','여','b');
+
+
+create table gogek(
+gogekno int primary key,
+gogekname varchar(10) not null,
+gogektel varchar(20),
+gogekjumin char(14),
+gogekdamsano int,
+CONSTRAINT FK_gogekdamsano foreign key(gogekdamsano) references jikwon(jikwonno));
+
+insert into gogek values(1,'이나라','02-535-2580','850612-1156777',5);
+insert into gogek values(2,'김혜순','02-375-6946','700101-1054777',3);
+insert into gogek values(3,'최부자','02-692-8926','890305-1065777',3);
+insert into gogek values(4,'김해자','032-393-6277','770412-2028777',13);
+insert into gogek values(5,'차일호','02-294-2946','790509-1062777',2);
+insert into gogek values(6,'박상운','032-631-1204','790623-1023777',6);
+insert into gogek values(7,'이분','02-546-2372','880323-2558777',2);
+insert into gogek values(8,'신영래','031-948-0283','790908-1063777',5);
+insert into gogek values(9,'장도리','02-496-1204','870206-2063777',4);
+insert into gogek values(10,'강나루','032-341-2867','780301-1070777',12);
+insert into gogek values(11,'이영희','02-195-1764','810103-2070777',3);
+insert into gogek values(12,'이소리','02-296-1066','810609-2046777',9);
+insert into gogek values(13,'배용중','02-691-7692','820920-1052777',1);
+insert into gogek values(14,'김현주','031-167-1884','800128-2062777',11);
+insert into gogek values(15,'송운하','02-887-9344','830301-2013777',2);
+
+
+create table board(
+num int primary key,
+author varchar(10),
+title varchar(50),
+content varchar(4000),
+bwrite date,
+readcnt int default 0);
+
+insert into board(num,author,title,content,bwrite) values(1,'홍길동','연습','연습내용',now());
+
+
