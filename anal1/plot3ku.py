@@ -17,5 +17,5 @@ titanic=sns.load_dataset('titanic')
 # t_pivot = titanic.pivot_table(index='class', columns='sex', aggfunc='size')
 # print(t_pivot)
 
-sns.heatmap(t_pivot, cmap=sns.light_palette('gray', as_cmap=True), annot=True, fmt='d')
-plt.show()
+#sns.heatmap(t_pivot, cmap=sns.light_palette('gray', as_cmap=True), annot=True, fmt='d')
+#plt.show()

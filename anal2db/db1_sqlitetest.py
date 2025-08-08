@@ -31,3 +31,4 @@ rows = cursor.fetchall()
 # 5. 안전하게 출력
 for i, row in enumerate(rows):
     print(f"{i+1}번째 행:", row)
+

@@ -72,11 +72,9 @@ frame = pd.DataFrame(pdata)
 
 frame.to_sql('test', conn, if_exists='append', index=False) # 이런식으로 넣을 수 있습니다. 
 
+df3 = pd.read_sql("select * from test", conn)
+print("\n💾 test 테이블의 전체 내용 (df3):\n", df3)
 
-
-
+# 리소스 정리
 cuser.close()
 conn.close()
-
-
-

@@ -3,6 +3,8 @@ import urllib.request as req
 import re
 import numpy as np
 
+#페이지 순환 스크래핑 예제 
+
 base_url = "https://m.popmart.co.kr/product/list.html?cate_no=392"
 page = 1
 
@@ -49,3 +51,4 @@ if all_prices:
     for name, price in zip(all_names, all_prices):
         if price == arr.max():
             print(f" - {name}")
+

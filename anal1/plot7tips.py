@@ -37,7 +37,27 @@ print(tip_pct_group.agg('var')) #비율 합계
 
 # 우리 뭐한번 할까유... 함수를 실행시켜서 그래프를 그려볼려고 해요
 
-result2 = tip_pct_group.agg(['sum', 'mean', 'var','max'])
+#사용자 정의 함수 한번 만들게요 
+def myFunc(group):
+    diff= group.max() - group.min()
+    return diff
+
+
+#내장된 함수일땐 그냥 쓰면 되고 사용자 정의 함수일땐 그냥 쓰면 안되고 함수 이름을 써줘야 한다.  (이건 추가된 내용이빈다.)
+result2 = tip_pct_group.agg(['sum', 'mean', 'var','max', myFunc])
 print(result2) 
+
+result2.plot(kind='barh', title='agg fumc result',stacked=True)
+plt.show()
+
+#두루두루 쭉 해봤어용 ㅎㅎ.,, 넘파이 판다스 지금 쭉쭉쭉 잘 지나오면서 어떻게 쓰는지 잘 봤고 시각화도 그때그때 필요할때마다 할거에요
+#독립적으로 운영할때는 파일로 저장하지만 웹에서 시각화 할때는 이미지를 만들어서 이미지를 만들땐 chart.js 라는 라이브러리를 써요 
+#저번에도 했던 이야기이기도 하지만 중요하니까 다시 언급합니다. 
+#시각화 이야기는 이정도로 마무리 하겠습니다! 
+#이제부터는 데이터 베이스에 대한 이야기를 할게요 
+
+
+
+
 
 

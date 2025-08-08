@@ -1,5 +1,5 @@
 #자전거 공유 시스템(워싱턴 D.C) 관련 파일로 시각화 
-#리니어 리그레이션
+#리니어 리그레이션 20250808
 
 import pandas as pd
 import numpy as np
@@ -63,6 +63,7 @@ plt.show()
 
 
 #챕터 2 Boixplot으로 시각화 - 대여량 - 계졀별, 시간별 근무일 여부에 따른 대여량 
+#박수연(실습)
 
 figure, (ax1, ax2) = plt.subplots(nrows=1, ncols=2)
 figure.set_size_inches(15, 5)
@@ -71,6 +72,27 @@ sns.boxplot(x='hour', y='count', data=train, ax=ax2)
 ax1.set(ylabel='건수', title='시간별 자전거 대여량')
 ax2.set(ylabel='건수', title='시간별 자전거 대여량')
 plt.show()
+
+#바이오스 플롯은 데이터의 분포를 확인하는 데 유용합니다. 
+
+# Boxplot으로 시각화 - 내년동: 계절별, 시간별, 근무일 여부에 따른 내년동
+#선생님이 쓴 코드 2행 2열로 직접 주는 방법으로 했다. 
+fig, axes = plt.subplots(nrows=2, ncols=2)
+fig.set_size_inches(12, 8)
+
+sns.boxplot(data=train, y='count', x='season', orient='v', ax=axes[0][0])
+sns.boxplot(data=train, y='count', x='hour', orient='v', ax=axes[0][1])
+sns.boxplot(data=train, y='count', x='workingday', orient='v', ax=axes[1][0])
+sns.boxplot(data=train, y='count', x='year', orient='v', ax=axes[1][1])
+
+axes[0][0].set(ylabel='건수', title='대여량')
+axes[0][1].set(ylabel='계절별', title='계절별 대여량')
+axes[1][0].set(ylabel='시간별', title='시간별 대여량')
+axes[1][1].set(ylabel='근무일', title='근무일 여부에 따른 대여량')
+plt.show()
+
+
+
 
 
 
