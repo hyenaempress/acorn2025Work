@@ -36,13 +36,41 @@ print(train.isnull().sum()) #결측치 확인  널이 포함된 열 확인용 �
 
 #이런식으로 볼 수 있어요 
 
-#연월일시 데이터로 자전거 대여량 시각화
+#연월일시 데이터로 자전거 대여량 시각화 
 train['year'] = train['datetime'].dt.year
 train['month'] = train['datetime'].dt.month
 train['day'] = train['datetime'].dt.day
 train['hour'] = train['datetime'].dt.hour
 train['minute'] = train['datetime'].dt.minute
 train['second'] = train['datetime'].dt.second
+
+print(train.columns)
+print(train.head(1))
+
+figure, (ax1, ax2, ax3, ax4) = plt.subplots(nrows=1, ncols=4)#이게 객체 지향적인 방법이다. 
+figure.set_size_inches(15, 5)
+sns.barplot(x='year', y='count', data=train, ax=ax1)
+sns.barplot(x='month', y='count', data=train, ax=ax2)
+sns.barplot(x='day', y='count', data=train, ax=ax3)
+sns.barplot(x='hour', y='count', data=train, ax=ax4)
+
+ax1.set(ylabel='건수', title='연도별 자전거 대여량')
+ax2.set(ylabel='건수', title='월별 자전거 대여량')
+ax3.set(ylabel='건수', title='일별 자전거 대여량')
+ax4.set(ylabel='건수', title='시간별 자전거 대여량')
+
+plt.show()
+
+
+#챕터 2 Boixplot으로 시각화 - 대여량 - 계졀별, 시간별 근무일 여부에 따른 대여량 
+
+figure, (ax1, ax2) = plt.subplots(nrows=1, ncols=2)
+figure.set_size_inches(15, 5)
+sns.boxplot(x='hour', y='count', data=train, ax=ax1)
+sns.boxplot(x='hour', y='count', data=train, ax=ax2)
+ax1.set(ylabel='건수', title='시간별 자전거 대여량')
+ax2.set(ylabel='건수', title='시간별 자전거 대여량')
+plt.show()
 
 
 
