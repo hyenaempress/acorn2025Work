@@ -28,65 +28,24 @@ try:
 
     cursor.execute(sql)
     
-    
-#  a) MariaDB에 저장된 jikwon, buser, gogek 테이블을 이용하여 아래의 문제에 답하시오.
 
-#      - 사번 이름 부서명 연봉, 직급을 읽어 DataFrame을 작성
-
-    df1 = pd.DataFrame(cursor.fetchall(),
-                       columns=['번호', '이름', '부서', '직급', '성별', '연봉'])
-    print(df1.head(3))
-
-
-#      - DataFrame의 자료를 파일로 저장
-
-    df1.to_csv('jikwon.csv', encoding='utf-8', index=False)
-
-#      - 부서명별 연봉의 합, 연봉의 최대/최소값을 출력
-
-    print(df1.groupby('부서')['연봉'].sum())
-    print(df1.groupby('부서')['연봉'].max())
-    print(df1.groupby('부서')['연봉'].min())
-
-
-#      - 부서명, 직급으로 교차 테이블(빈도표)을 작성(crosstab(부서, 직급))
-
-    ctab = pd.crosstab(df1['부서'], df1['직급'], margins=True)    
-
-#      - 직원별 담당 고객자료(고객번호, 고객명, 고객전화)를 출력. 담당 고객이 없으면 "담당 고객  X"으로 표시
-
-    print(df1.groupby('번호')['이름'].count())  # 직원별 담당 고객자료
-    print(df1.groupby('번호')['이름'].count().map(lambda x: '담당 고객 X' if x == 0 else x))
-   
-#      - 부서명별 연봉의 평균으로 가로 막대 그래프를 작성
-
-    df1.groupby('부서')['연봉'].mean().plot(kind='bar', rot=0)
-    plt.show()
- 
-
-#  b) MariaDB에 저장된 jikwon 테이블을 이용하여 아래의 문제에 답하시오.
-
-#      - pivot_table을 사용하여 성별 연봉의 평균을 출력
-
-#      - 성별(남, 여) 연봉의 평균으로 시각화 - 세로 막대 그래프
-
-#      - 부서명, 성별로 교차 테이블을 작성 (crosstab(부서, 성별))
-
- 
 
 #  c) 키보드로 사번, 직원명을 입력받아 로그인에 성공하면 console에 아래와 같이 출력하시오.
-
 #       조건 :  try ~ except MySQLdb.OperationalError as e:      사용
-
 #      사번  직원명  부서명   직급  부서전화  성별
-
 #      ...
-
 #      인원수 : * 명
+    
+    jikwonno = input('사번: ')
+    jikwonname = input('직원명: ')
+    sql = "select jikwonno, jikwonname, busername, jikwonjik, jikwongen, jikwonpay from jikwon inner join buser on jikwon.busernum=buser.buserno where jikwonno=%s and jikwonname=%s"
+    cursor.execute(sql, (jikwonno, jikwonname))
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+    print(f"인원수: {len(rows)} 명")
 
-    
-    
-    
+
 except Exception as e:
     print("SQL 실행 오류:", e)
 finally:
