@@ -62,30 +62,31 @@ try:
 
     df1.groupby('부서')['연봉'].mean().plot(kind='bar', rot=0)
     plt.show()
- 
 
 #  b) MariaDB에 저장된 jikwon 테이블을 이용하여 아래의 문제에 답하시오.
 
 #      - pivot_table을 사용하여 성별 연봉의 평균을 출력
 
+    print(df1.pivot_table(index='성별', values='연봉', aggfunc='mean'))
+
 #      - 성별(남, 여) 연봉의 평균으로 시각화 - 세로 막대 그래프
+
+    df1.pivot_table(index='성별', values='연봉', aggfunc='mean').plot(kind='bar', rot=0)
+    plt.show()
+
 
 #      - 부서명, 성별로 교차 테이블을 작성 (crosstab(부서, 성별))
 
- 
+    ctab = pd.crosstab(df1['부서'], df1['성별'], margins=True)
+    print(ctab)
+
+
 
 #  c) 키보드로 사번, 직원명을 입력받아 로그인에 성공하면 console에 아래와 같이 출력하시오.
-
 #       조건 :  try ~ except MySQLdb.OperationalError as e:      사용
-
 #      사번  직원명  부서명   직급  부서전화  성별
-
 #      ...
-
 #      인원수 : * 명
-
-    
-    
     
 except Exception as e:
     print("SQL 실행 오류:", e)

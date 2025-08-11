@@ -1,14 +1,3 @@
-#마리아 디비를 쓰는 이유는 마리아 디비가 SQL 표준을 따르고 있기 떄문입니다.
-#이번에는 마리아 디비와 연동하는 방법을 알아보겠습니다.
-#Postgres 디비도 많이 쓰입니다. 나중에 그것도 설치해서 연결해보는것도 좋습니다.
-#모두 관계형 데이터 베이스입니다.
-
-
-#1 연결할려면 커넥션 객체를 만들어야 하고 우선 모듈 설치부터 파겠습니다.
-#아나콘다 프롬프트에서 pip install MySQLClient 을 해줍니다.
-#이후엔 두개의 폴더가 생깁니다. 
-
-
 import MySQLdb
 import numpy as np
 import pandas as pd
@@ -21,8 +10,9 @@ plt.rc('font', family='malgun gothic')
 plt.rcParams['axes.unicode_minus'] = False
 
 try:
-    with open('./mymaria.dat', 'rb') as obj:
+    with open('./01_big_data_machine_learning/data/mymaria.dat', 'rb') as obj:
         config = pickle.load(obj)
+
 except Exception as e:
     print("읽기 오류:", e)
     sys.exit()
@@ -41,82 +31,46 @@ try:
     for(jikwonno, jikwonname, busername, jikwonjik, jikwongen, jikwonpay) in cursor:
         print(jikwonno, jikwonname, busername, jikwonjik, jikwongen, jikwonpay)
 
-    # 출력 2
-    
+    # 출력 2: Dataframe
     df1 = pd.DataFrame(cursor.fetchall(),
                        columns=['jikwonno', 'jikwonname', 'busername', 'jikwonjik', 'jikwongen', 'jikwonpay'])
-    print(df1.head(3))    
-    #출력 3
-    df12 = pd.read_sql(sql, conn)
-    print(df12.head(3))
-    
-    #CSV 파일로 출력력
-    with open('jik_data.csv', 'w', encoding='utf-8') as fobj:#위드문 써야 클로우즈를 안합니다.
-        writer = csv.writer(fobj)      
-    
-    #CSV 파일로 저장 
-    df1.to_csv('jikwon.csv', encoding='utf-8', index=False)
-    
-    #CSV 핑;ㄹ러 
-    df2 = pd.read_csv('jik_data.csv', encoding='utf-8',
-                      names=['번호','이름','부서','직급','성별','연봉'])
-    print(df2.head(3)) 
-    #웹으로 출력 장고를 사용해야 합니다.
-    print('\nDB의 자료를 pandasd의 sql 로처리')
-    df = pd.read_sql(sql, conn)
-    print(df.head(3))
-    
-    print('\n디비의 자료를 데이터 프레임으로 읽었음으로 판다스의 기능을 사용 할 수 있습니다')
-    #판다스 기능 몇개만 적용해봅시다.
-    print('건수 : ', len(df))
-    print('평균 연봉 : ', df['jikwonpay'].mean())
-    print('최고 연봉 : ', df['jikwonpay'].max())
-    print('최저 연봉 : ', df['jikwonpay'].min())
-    print('평균 연봉 : ', df['jikwonpay'].mean())
-    print('최고 연봉 : ', df['jikwonpay'].max())
-    print('최저 연봉 : ', df['jikwonpay'].min())
-    #직급별 인원수 
-    print(df['jikwonjik'].value_counts())
-    #부서별 인원수 
-    print(df['busername'].value_counts())
-    #성별 인원수 
-    print(df['jikwongen'].value_counts())
-    #연봉 평균 
-    print(df['jikwonpay'].mean())
-    #연봉 최고 
-    
-    #연봉이 있으면 분산 표준 편차 쓸 수 있죠 판다스 쓰면 되겠죠 
-    print('분산 : ', df['jikwonpay'].var())
-    print('표준편차 : ', df['jikwonpay'].std())
-    #연봉이 있으면 히스토그램 그려보죠 
-    plt.hist(df['jikwonpay'], bins=10, color='green', alpha=0.5)
-    plt.show()
-    
-   
-    ctab = pd.crosstab(df['jikwongen'], df['jikwonjik'], margins=True) #성별 직급 별 건수
-    print(ctab)
-    
-    #print(ctab.to_html())  # 이렇게 HTML 파일로 할 수 있다.
-    
-    #시각화 - 직급별 연봉 평균 
-    df.groupby('jikwonjik')['jikwonpay'].mean().plot(kind='bar', rot=0)
-    plt.show()
-    print('직급별 연봉 평균 : ')
-    
-    #시각화 - 부서별 연봉 평균 
-    df.groupby('busername')['jikwonpay'].mean().plot(kind='bar', rot=0)
-    plt.show()
-    #시각화 - 부서별 연봉 평균 pie 그래프
-    df.groupby('busername')['jikwonpay'].mean().plot(kind='pie', autopct='%.1f%%')
-    plt.show()
-    
-    plt.pie(df['jikwonpay'], labels=df['jikwonjik'], autopct='%.1f%%', explode=(0.1,0.1,0.1,0.1,0.1), shadow=True, startangle=90)
-    plt.show()
-    
-    #시계 방향으로  그려보죠 
-    plt.pie(df['jikwonpay'], labels=df['jikwonjik'], autopct='%.1f%%', explode=(0.1,0.1,0.1,0.1,0.1), shadow=True, startangle=90)
-    plt.show()
+    print(df1.head(3))
+    print()
 
+    # 출력 3: csv 파일
+    with open('./01_big_data_machine_learning/data/jik_data.csv', mode='w', encoding='utf-8') as fobj:
+        writer = csv.writer(fobj)
+        for r in cursor:
+            writer.writerow(r)
+
+    # csv 파일을 읽어 DataFrame에 저장
+    df2 = pd.read_csv('./01_big_data_machine_learning/data/jik_data.csv', encoding='utf-8', names = ['번호', '이름', '부서', '직급', '성별', '연봉'])
+    print(df2.head(3))
+
+    print('\nDB에 자료를 pandas의 sql 처리 기능으로 읽기 ------')
+    df = pd.read_sql(sql, conn)
+    df.columns = ['번호', '이름', '부서', '직급', '성별', '연봉']
+    print(df.head(3))
+
+    print("\nDB의 자료를 DataFrame으로 읽었으므로 pandas의 기능을 적용 가능---")
+    print('건수: ', len(df))
+    print('건수: ', df['이름'].count())
+    print('직급별 인원수', df['직급'].value_counts())
+    print('연봉 평균: ', df.loc[:, '연봉'].mean())
+    print()
+    ctab = pd.crosstab(df['성별'], df['직급'], margins=True) # 성별 직급별 건수
+    # print(ctab.to_html)
+
+    # 시각화 - 직급별 연봉 평균 - pi
+    jik_ypay = df.groupby(['직급'])['연봉'].mean()
+    print('직급별 연봉 평균:\n', jik_ypay)
+
+    print(jik_ypay.index)
+    print(jik_ypay.values)
+    plt.pie(jik_ypay, explode=(0.2, 0, 0, 0.3, 0), labels=jik_ypay.index, shadow=True, labeldistance=0.7, counterclock=False)
+    plt.show()
+    
 except Exception as e:
     print("SQL 실행 오류:", e)
-
+finally:
+    conn.close()

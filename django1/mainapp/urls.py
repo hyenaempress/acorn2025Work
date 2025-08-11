@@ -16,7 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from myapp import views # 장고 앱 추가 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.main, name='main'), #위임 하는게 좋아요  메인 쓰고 있지만 , 요청명이 없을땐 views.main 쓰면 됩니다.   
+    path('showdata', views.showdata, name='showdata'), #위임 하는게 좋아요  메인 쓰고 있지만 , 요청명이 없을땐 views.main 쓰면 됩니다.    
 ]
+
