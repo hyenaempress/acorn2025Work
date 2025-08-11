@@ -128,7 +128,7 @@ See [`LICENSE`](./LICENSE) for more details.
 - [20. 장고 기초 가이드](alnlnote/gide_note/20.%20장고%20기초%20가이드.md)
 - [20.01 Django 연결 및 구성 가이드](alnlnote/gide_note/20.01%20Django%20연결%20및%20구성%20가이드.md)
 - [20.02 Django 뷰 함수와 CSV 데이터 처리 가이드](alnlnote/gide_note/20.02%20Django%20뷰%20함수와%20CSV%20데이터%20처리%20가이드.md)
-- [20.02 Django URL 위임과 ECharts 연동 시애틀 날씨 데이터 분석 실습 가이드](alnlnote/gide_note/20.02%20Django%20URL%20위임과%20ECharts%20연동%20시애틀%20날씨%20데이터%20분석%20실습%20가이드.md)
+- [20.02.00 Django URL 위임과 ECharts 연동 시애틀 날씨 데이터 분석 실습 가이드](alnlnote/gide_note/20.02.00%20Django%20URL%20위임과%20ECharts%20연동%20시애틀%20날씨%20데이터%20분석%20실습%20가이드.md)
 - [20.02.01 ECharts 가이드 - Django와 함께하는 데이터 시각화](alnlnote/gide_note/20.02.01%20ECharts%20가이드%20-%20Django와%20함께하는%20데이터%20시각화.md)
 - [20.02.02 Django JSON 직렬화 가이드 - Python에서 JavaScript로](alnlnote/gide_note/20.02.02%20Django%20JSON%20직렬화%20가이드%20-%20Python에서%20JavaScript로.md)
 
