@@ -1,6 +1,4 @@
 # pandas 문제 7)
-
-
 import MySQLdb
 import numpy as np
 import pandas as pd
