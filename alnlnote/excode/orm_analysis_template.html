@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django ORM 분석 - 직원 정보 시스템</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card-header { font-weight: bold; }
+        .stats-badge { font-size: 1.1em; }
+        .orm-indicator { 
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .method-tag {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            color: #495057;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <!-- 헤더 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h1 class="text-center mb-3">
+                    🏢 Django ORM 활용 직원 분석 시스템
+                </h1>
+                <div class="text-center mb-3">
+                    <span class="orm-indicator">🔧 Django ORM 사용</span>
+                </div>
+                <p class="text-center text-muted">
+                    Raw SQL 대신 Django ORM의 QuerySet API를 활용한 안전하고 효율적인 데이터 분석
+                </p>
+            </div>
+        </div>
+
+        <!-- 검색 폼 -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">🔍 부서별 검색</h5>
+            </div>
+            <div class="card-body">
+                <form method="GET" class="row g-3">
+                    <div class="col-md-8">
+                        <input type="text" 
+                               class="form-control" 
+                               name="dept" 
+                               value="{{ dept }}" 
+                               placeholder="부서명을 입력하세요 (예: 총무부, 영업부)">
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="bi bi-search"></i> 검색
+                        </button>
+                    </div>
+                </form>
+                <small class="text-muted mt-2 d-block">
+                    <span class="method-tag">filter()</span> + 
+                    <span class="method-tag">icontains</span> 룩업 사용으로 대소문자 무시 부분 검색
+                </small>
+            </div>
+        </div>
+
+        <!-- 통계 요약 -->
+        <div class="row mb-4">
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="card border-primary">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-primary">총 직원 수</h5>
+                        <h3 class="stats-badge text-primary">{{ total_count }}명</h3>
+                        <small class="text-muted"><span class="method-tag">count()</span></small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="card border-info">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-info">활성 부서</h5>
+                        <h3 class="stats-badge text-info">{{ dept_count }}개</h3>
+                        <small class="text-muted"><span class="method-tag">annotate()</span></small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="card border-success">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-success">고객 담당자</h5>
+                        <h3 class="stats-badge text-success">{{ customers_staff_count }}명</h3>
+                        <small class="text-muted"><span class="method-tag">Exists()</span></small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="card border-warning">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-warning">고성과자</h5>
+                        <h3 class="stats-badge text-warning">{{ high_performers_count }}명</h3>
+                        <small class="text-muted"><span class="method-tag">Q()</span> 객체</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 성별 통계 -->
+        <div class="card mb-4">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">👥 성별 통계 분석</h5>
+                <small>Case/When을 활용한 조건부 집계</small>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>👨 남성 직원</h6>
+                        <p class="mb-1">인원: <strong>{{ gender_stats.남성직원수 }}명</strong></p>
+                        <p class="mb-0">평균 연봉: <strong>{{ gender_stats.남성평균연봉|floatformat:0 }}만원</strong></p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>👩 여성 직원</h6>
+                        <p class="mb-1">인원: <strong>{{ gender_stats.여성직원수 }}명</strong></p>
+                        <p class="mb-0">평균 연봉: <strong>{{ gender_stats.여성평균연봉|floatformat:0 }}만원</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 직원 목록 -->
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">👨‍💼 직원 목록 (JOIN 결과)</h5>
+                <small>
+                    <span class="method-tag">select_related()</span>로 N+1 문제 해결 및 
+                    <span class="method-tag">filter()</span>로 조건 검색
+                </small>
+            </div>
+            <div class="card-body">
+                {% if total_count > 0 %}
+                    <div class="table-responsive">
+                        {{ join_html|safe }}
+                    </div>
+                    <p class="text-muted mt-2">
+                        <strong>ORM 쿼리:</strong> 
+                        <code>Jikwon.objects.select_related('busernum').filter(...).order_by('jikwonno')</code>
+                    </p>
+                {% else %}
+                    <div class="alert alert-warning text-center">
+                        <h5>⚠️ 검색 결과가 없습니다</h5>
+                        <p class="mb-0">다른 검색 조건을 시도해보세요.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- 부서별 통계 -->
+        <div class="card mb-4">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">🏢 부서별 통계</h5>
+                <small>
+                    <span class="method-tag">annotate()</span> + 집계 함수들 
+                    (<span class="method-tag">Count</span>, <span class="method-tag">Avg</span>, <span class="method-tag">Sum</span>, <span class="method-tag">Max</span>, <span class="method-tag">Min</span>)
+                </small>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    {{ dept_html|safe }}
+                </div>
+                <p class="text-muted mt-2">
+                    <strong>ORM 쿼리:</strong> 
+                    <code>Buser.objects.annotate(직원수=Count('jikwon'), 평균연봉=Avg('jikwon__jikwonpay')...)</code>
+                </p>
+            </div>
+        </div>
+
+        <!-- 직급별 분석 -->
+        <div class="card mb-4">
+            <div class="card-header bg-danger text-white">
+                <h5 class="mb-0">📊 직급별 분석</h5>
+                <small>
+                    <span class="method-tag">values()</span> + 
+                    <span class="method-tag">annotate()</span>로 GROUP BY 구현
+                </small>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    {{ position_html|safe }}
+                </div>
+                <p class="text-muted mt-2">
+                    <strong>ORM 쿼리:</strong> 
+                    <code>Jikwon.objects.values('jikwonjik').annotate(인원수=Count('jikwonno')...)</code>
+                </p>
+            </div>
+        </div>
+
+        <!-- ORM 장점 설명 -->
+        <div class="card mb-4">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">🔧 Django ORM의 장점</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>✅ 보안 측면</h6>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">SQL 인젝션 자동 방지</li>
+                            <li class="list-group-item">매개변수 자동 이스케이프</li>
+                            <li class="list-group-item">타입 안전성 보장</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>✅ 개발 효율성</h6>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">데이터베이스 독립성</li>
+                            <li class="list-group-item">객체지향적 접근</li>
+                            <li class="list-group-item">IntelliSense 지원</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 사용된 ORM 메서드 요약 -->
+        <div class="card mb-4">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">📋 이 페이지에서 사용된 ORM 메서드들</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h6>기본 조회</h6>
+                        <span class="method-tag">objects.all()</span><br>
+                        <span class="method-tag">filter()</span><br>
+                        <span class="method-tag">order_by()</span><br>
+                        <span class="method-tag">count()</span>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>관계 & 성능</h6>
+                        <span class="method-tag">select_related()</span><br>
+                        <span class="method-tag">prefetch_related()</span><br>
+                        <span class="method-tag">Exists()</span><br>
+                        <span class="method-tag">OuterRef()</span>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>집계 & 조건</h6>
+                        <span class="method-tag">annotate()</span><br>
+                        <span class="method-tag">aggregate()</span><br>
+                        <span class="method-tag">Q()</span><br>
+                        <span class="method-tag">F()</span><br>
+                        <span class="method-tag">Case/When</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 네비게이션 -->
+        <div class="text-center mb-4">
+            <a href="/dbshow/" class="btn btn-outline-primary me-2">Raw SQL 버전</a>
+            <a href="/orm-examples/" class="btn btn-info me-2">ORM 기본 예제</a>
+            <a href="/" class="btn btn-primary">메인으로</a>
+        </div>
+
+        <!-- 강사님 조언 -->
+        <div class="alert alert-info">
+            <h6>💡 강사님 조언</h6>
+            <p class="mb-0">
+                <em>"장고 ORM을 써도 되고 그냥 Raw SQL 문장을 써도 괜찮아요. 편한 걸로 하시면 됩니다."</em><br>
+                상황에 맞게 ORM과 Raw SQL을 적절히 혼용하는 것이 실무의 베스트 프랙티스입니다!
+            </p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
