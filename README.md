@@ -132,6 +132,8 @@ See [`LICENSE`](./LICENSE) for more details.
 - [20.02.01 ECharts 가이드 - Django와 함께하는 데이터 시각화](alnlnote/gide_note/20.02.01%20ECharts%20가이드%20-%20Django와%20함께하는%20데이터%20시각화.md)
 - [20.02.02 Django JSON 직렬화 가이드 - Python에서 JavaScript로](alnlnote/gide_note/20.02.02%20Django%20JSON%20직렬화%20가이드%20-%20Python에서%20JavaScript로.md)
 - [20.03 Django MariaDB 연결 및 DB 활용 완전 가이드](alnlnote/gide_note/20.03%20Django%20MariaDB%20연결%20및%20DB%20활용%20완전%20가이드.md)
+- [20.03.01 Django MariaDB 연결 및 DB 강사님의 체크포인트 SQL 인젝션, XSS 공격 방지](alnlnote/gide_note/20.03.01%20Django%20MariaDB%20연결%20및%20DB%20강사님의%20체크포인트%20SQL%20인젝션,%20XSS%20공격%20방지.md)
+- [20.03.02 Django MariaDB 연결 및 DB 포인트 추가 정리 고급 기법 및 실무 패턴(성능특화)](alnlnote/gide_note/20.03.02%20Django%20MariaDB%20연결%20및%20DB%20포인트%20추가%20정리%20고급%20기법%20및%20실무%20패턴(성능특화).md)
 
 ---
 
@@ -242,7 +244,7 @@ See [`LICENSE`](./LICENSE) for more details.
 - **웹 크롤링**: `15~17.04.01` (완전 가이드)  
 - **데이터 시각화**: `18.00, 18.03~18.06` (기본→고급 시각화)
 - **데이터베이스**: `19.01~19.05` (SQLite + MariaDB + 시험대비)
-- **웹 개발**: `20~20.03` (Django 완전체 + MariaDB 연동)
+- **웹 개발**: `20~20.03.02` (Django 완전체 + 실무패턴 + 보안)
 - **알고리즘 융합**: `추가 학습` (유니버스 관점)
 
 ### 실무 프로젝트별 추천
@@ -255,7 +257,7 @@ See [`LICENSE`](./LICENSE) for more details.
 | **데이터베이스 기초** | `19.01` (SQLite 기본) |
 | **실무 DB 연동** | `19.02~19.05` (MariaDB 완전정복 + 시험대비) |
 | **웹 데이터 대시보드** | `20~20.02.02` (Django + ECharts + JSON) |
-| **실무 웹 애플리케이션** | `20.03` (Django + MariaDB 완전 연동) |
+| **엔터프라이즈 웹앱** | `20.03~20.03.02` (Django + MariaDB + 보안 + 실무패턴) |
 | **고급 알고리즘 융합** | `11.10 + 추가학습` (유니버스 실무 응용) |
 
 ---
