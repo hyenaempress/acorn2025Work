@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>ORM 분석 페이지</title>
+
+</head>
+<body>
+  <h2>ORM 조회 페이지</h2>
+
+  <form method="get" action="/orm_analysis/">
+    <label for="dept">부서명:</label>
+    <input type="text" id="dept" name="dept" value="{{ dept }}">
+    <button type="submit">조회</button>
+    <a href="/">메인</a>
+  </form>
+
+  <h3>① 직원 목록</h3>
+  <div>{{ join_html|safe }}</div>
+
+  <h3>② 부서·직급별 연봉 합/평균</h3>
+  <div>{{ dept_pos_pay_html|safe }}</div>
+
+  <h3>③ 부서별 연봉 합/평균</h3>
+  <div>{{ dept_pay_html|safe }}</div>
+
+  <h3>④ 성별·직급별 인원수</h3>
+  <div>{{ gender_pos_freq_html|safe }}</div>
+</body>
+</html>
