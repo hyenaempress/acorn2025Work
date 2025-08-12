@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2> 직원 정보 AND 직급별 연봉 관련 통계 </h2>
+    <h3> 부서명 : {{ dept }} </h3>
+   <form method="get" action="/dbshow/">
+    <label for="dept"> 부서명 : </label>
+    <input type="text" name="dept" value="{{ dept }}" placeholder="부서명 입력">
+    <button type="submit"> 조회 </button>
+    </form>
+    
+    <a href="/dbshow/"> 전체 자료 </a>
+    <a href="/"> 메인 페이지로 이동 </a>
+    <h3> 직원 목록  </h3>
+    {{ join_html|safe }}
+    <br>
+    <h3>직급별 연봉 통계</h3>
+    {{ stats_html|safe }}
+
+</body>
+</html>
+
