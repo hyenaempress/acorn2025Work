@@ -11,7 +11,7 @@ def indexFunc(request):
     return render(request, 'index.html')
 
 def dbshowFunc(request):
-    dept = (request.GET.get('dept') or "").strip()
+    dept = (request.GET.get('dept') or "").strip() # 사용자 입력값 가져오기(부서명)
 
     sql = """
     SELECT
@@ -71,7 +71,6 @@ def dbshowFunc(request):
 
 
 # myapp/views.py
-
 
 def ormAnalysisFunc(request):
     """ORM을 사용한 직원 정보 조회"""
@@ -136,9 +135,8 @@ def ormAnalysisFunc(request):
             'gender_pos_freq_html': empty_html,
         }
         return render(request, 'myapp/orm_result.html', ctx)
+    
 
-    
-    
     df = df.rename(columns={
         'jikwonno': '직원번호',
         'jikwonname': '직원명',
