@@ -6,7 +6,6 @@ from django.utils.html import escape
 from datetime import date
 
 
-
 def indexFunc(request):
     """메인 페이지"""
     return render(request, 'index.html')
@@ -72,11 +71,7 @@ def dbshowFunc(request):
 
 
 # myapp/views.py
-from datetime import date
-import pandas as pd
-from django.shortcuts import render
-from django.utils.html import escape
-from .models import Jikwon
+
 
 def ormAnalysisFunc(request):
     """ORM을 사용한 직원 정보 조회"""
@@ -94,6 +89,30 @@ def ormAnalysisFunc(request):
     qs = qs.order_by('busernum__buserno', 'jikwonname')
 
     # 1) values()로 DataFrame 만들기 좋은 형태로 뽑기
+    #1-1 ) 방법 1 
+    # 컬럼 한글화 + 근무년수 계산
+    
+    """
+     # 1) 먼저 빈 리스트 준비
+    df = []
+    # 2) ORM 결과를 리스트에 담기
+    for row in rows:
+    df.append(row)
+    # 3) 컬럼명 한글화
+    df = df.rename(columns={
+    'jikwonno': '직원번호',
+    'jikwonname': '직원명',
+    'busernum__busername': '부서명',
+    'busernum__busertel': '부서전화',
+    'jikwonjik': '직급',
+    'jikwonpay': '연봉',
+    'jikwongen': '성별',
+    'jikwonibsail': '입사일',
+    })
+    
+    """
+    #방법2
+    
     rows = qs.values(
         'jikwonno',               # 직원번호
         'jikwonname',             # 직원명
@@ -118,7 +137,8 @@ def ormAnalysisFunc(request):
         }
         return render(request, 'myapp/orm_result.html', ctx)
 
-    # 컬럼 한글화 + 근무년수 계산
+    
+    
     df = df.rename(columns={
         'jikwonno': '직원번호',
         'jikwonname': '직원명',
