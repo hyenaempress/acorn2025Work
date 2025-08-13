@@ -127,6 +127,14 @@ This repository is licensed under **CC BY-NC-SA 4.0**. See `LICENSE` for details
 - [22.00 통계 입문 - 데이터 분석과 AI의 기초](alnlnote/gide_note/22.00%20통계%20입문%20-%20데이터%20분석과%20AI의%20기초.md)
 - [22.01 기술통계(Descriptive Statistics) 완전 정리](alnlnote/gide_note/22.01%20기술통계(Descriptive%20Statistics)%20완전%20정리.md)
 - [22.02 추론통계(Inferential Statistics) 입문](alnlnote/gide_note/22.02%20추론통계(Inferential%20Statistics)%20입문.md)
+- [22.02.01 추론통계 강사님 설명 포인트 정리](alnlnote/gide_note/22.02.01%20추론통계(Inferential%20Statistics)%20강사님%20설명%20포인트%20정리.md)
+- [22.02.02 추론통계 핵심 요약](alnlnote/gide_note/22.02.02%20추론통계(Inferential%20Statistics)%20핵심%20요약.md)
+- [22.03 가설 검정(Hypothesis Testing) 가이드](alnlnote/gide_note/22.03%20가설%20검정(Hypothesis%20Testing)%20가이드.md)
+- [22.03.01.01 가설검정 제1종·제2종 오류 - 쉬운 예시](alnlnote/gide_note/22.03.01.01%20가설검정%20제1종·제2종%20오류%20-%20쉬운%20예시.md)
+- [22.03.01.02 가설검정 제1종·제2종 오류 - 고도화 버전](alnlnote/gide_note/22.03.01.02%20가설검정%20제1종·제2종%20오류%20-%20고도화%20버전.md)
+- [22.03.02 표준편차와 분산의 중요성 - 평균만으로는 알 수 없는 진실](alnlnote/gide_note/22.03.02%20표준편차와%20분산의%20중요성%20-%20평균만으로는%20알%20수%20없는%20진실.md)
+- [22.03.03 표준편차와 분산 왜도(Skewness)와 첨도(Kurtosis)](alnlnote/gide_note/22.03.03%20표준편차와%20분산%20왜도(Skewness)와%20첨도(Kurtosis).md)
+- [22.04 심화 카이제곱과 유의확률(p-value) 차이](alnlnote/gide_note/22.04%20심화%20카이제곱이랑%20(피벨류)유의확률%20차이.md)
 
 ### 13. 알고리즘 시리즈
 - [11. 알고리즘 기초](alnlnote/gide_note/11.%20알고리즘%20기초.md)
