@@ -59,8 +59,6 @@ print(result)
 
 
 
-rh
-
 
 
 

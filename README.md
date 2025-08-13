@@ -122,6 +122,7 @@ This repository is licensed under **CC BY-NC-SA 4.0**. See `LICENSE` for details
 
 ### 11. 자연어 처리 (NLP)
 - [21.01 KoNLPy로 한글 형태소 분석 완전 가이드](alnlnote/gide_note/21.01%20한글%20형태소와%20한글%20문서로%20형태소%20추출(KoNLPy)%20완전%20가이드.md)
+- [21.02 동아일보 워드클라우드 예제(크롤링 응용)](alnlnote/gide_note/21.02%20동아일보%20워드클라우드%20예제(크롤링%20응용).md) ⭐ **NEW**
 
 ### 12. **통계학 기초** (NEW!)
 - [22.00 통계 입문 - 데이터 분석과 AI의 기초](alnlnote/gide_note/22.00%20통계%20입문%20-%20데이터%20분석과%20AI의%20기초.md)
@@ -302,6 +303,7 @@ This repository is licensed under **CC BY-NC-SA 4.0**. See `LICENSE` for details
 | **데이터베이스 기초** | `19.01` (SQLite 기본) |
 | **실무 DB 연동** | `19.02~19.05` (MariaDB 완전정복 + 시험대비) |
 | **웹 데이터 대시보드** | `20~20.02.02` (Django + ECharts + JSON) |
+| **뉴스 분석 & 시각화** ⭐ | `21.02` (동아일보 크롤링 + 워드클라우드) **NEW** |
 | **엔터프라이즈 웹앱** | `20.03~20.03.04` (Django + MariaDB + 보안 + ORM) |
 | **한글 텍스트 분석** | `21.01` (KoNLPy + 형태소 분석) |
 | **통계 기반 의사결정** ⭐ | `22.00~22.02` (통계 입문 + 가설검정) **NEW** |
@@ -352,6 +354,7 @@ This repository is licensed under **CC BY-NC-SA 4.0**. See `LICENSE` for details
 
 ## 🔄 Changelog
 
+- **2025-08-13**: 동아일보 워드클라우드 예제 추가 (21.02, 크롤링 + NLP 응용)
 - **2025-08-13**: 통계학 섹션 추가 (22.00~22.02, DIKW 피라미드, 기술통계, 추론통계)
 - **2025-08-13**: README 전면 개편(섹션 정리·중복 제거·WIP 체크박스 도입)
 
