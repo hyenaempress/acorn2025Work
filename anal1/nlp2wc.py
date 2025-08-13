@@ -20,8 +20,46 @@ print('target_url: ', target_url)
 
 source_code = urllib.request.urlopen(target_url)
 soup = BeautifulSoup(source_code, 'html.parser', from_encoding='utf-8')
-
 #print(soup)
+
+#contents > div > div > div.divide_area > section > div.sch_section.sch_news > ul > li:nth-child(1) > article > div > h4
+
+mag = ""
+for title in soup.find_all('h4', class_='tit'):
+    title_link = title.select('a')
+   # print(title_link)
+    article_url = title_link[0]['href']
+    try:
+        source_article = urllib.request.urlopen(article_url)
+        soup = BeautifulSoup(source_article, 'lxml.parser', from_encoding='utf-8')
+        content = soup.select_one('div.article_txt').get_text()
+        for imsi in content:
+            item = str(imsi.find_all(text=True))
+            #print(item)
+            mag += item #msg에 차곡 차곡 쌓을게요 
+        #print(content)
+        print(mag)
+    except Exception as e:
+        pass
+# print(mag)
+
+from konlpy.tag import Okt
+from collections import Counter
+okt = Okt()
+
+nouns = okt.nouns(mag)
+print(nouns)
+
+result = []
+for imsi in nouns:
+    if len(imsi) > 1:
+        result.append(imsi)
+
+print(result)
+
+
+
+rh
 
 
 
