@@ -145,6 +145,8 @@ This repository is licensed under **CC BY-NC-SA 4.0**. See `LICENSE` for details
 - [22.05.04 이원 카이제곱 검정 - 교차분석 기초부터 이론](alnlnote/gide_note/22.05.04%20이원%20카이제곱%20검정%20-%20교차분석%20기초부터%20이론.md) ⭐ **NEW**
 - [22.05.05 일원·이원 카이제곱 검정 종합 예제](alnlnote/gide_note/22.05.05%20일원·이원%20카이제곱%20검정%20종합%20예제.md) ⭐ **NEW**
 - [22.05.06 심화 카이제곱과 유의확률(p-value) 차이](alnlnote/gide_note/22.05.06%20심화%20카이제곱이랑%20(피벨류)유의확률%20차이.md)
+- [22.05.07 카이제곱 검정 분석 실습 - 직급연봉 부모학력](alnlnote/gide_note/22.05.07%20카이제곱%20검정%20분석%20실습-%20직급연봉%20부모학력.md) ⭐ **NEW**
+- [22.05.08 Django 커피 설문조사 카이제곱 검정 웹 애플리케이션](alnlnote/gide_note/22.05.08%20Django%20커피%20설문조사%20카이제곱%20검정%20웹%20애플리케이션.md) ⭐ **NEW**
 
 ### 13. 알고리즘 시리즈
 - [11. 알고리즘 기초](alnlnote/gide_note/11.%20알고리즘%20기초.md)
@@ -407,7 +409,14 @@ This repository is licensed under **CC BY-NC-SA 4.0**. See `LICENSE` for details
 
 - **Wiki**: https://github.com/hyenaempress/acorn2025Work/wiki
 - **실습 파일**: https://github.com/hyenaempress/acorn2025Work/tree/main/anal1
-- **RAG 기술과 발전 동향**https://nia.or.kr/site/nia_kor/ex/bbs/View.do?cbIdx=82618&bcIdx=27539&parentSeq=27539
+- **RAG 기술과 발전 동향**: https://nia.or.kr/site/nia_kor/ex/bbs/View.do?cbIdx=82618&bcIdx=27539&parentSeq=27539
+
+### 📚 참고 문서
+- **정보통신기획평가원**: [RAG 기술과 발전 동향 보고서](https://nia.or.kr/site/nia_kor/ex/bbs/View.do?cbIdx=82618&bcIdx=27539&parentSeq=27539)
+- **통계청**: [국가통계포털](https://kosis.kr/)
+- **한국데이터산업진흥원**: [데이터 기반 정책 수립 가이드](https://www.kdata.or.kr/)
+- **과학기술정보통신부**: [AI 정책 및 기술 동향](https://www.msit.go.kr/)
+
 ---
 
 ## 🙏 Acknowledgments
@@ -420,6 +429,7 @@ This repository is licensed under **CC BY-NC-SA 4.0**. See `LICENSE` for details
 ## 🔄 Changelog
 
 - **2025-08-13**: 동아일보 워드클라우드 예제 추가 (21.02, 크롤링 + NLP 응용)
+- **2025-08-15**: 카이제곱 실습·웹애플리케이션 추가 (22.05.07 직급연봉/부모학력 분석, 22.05.08 Django 커피설문조사)
 - **2025-08-15**: 통계학 심화 과정 로드맵 추가 (23~29 섹션, t검정·ANOVA·회귀분석·베이지안·실무프로젝트)
 - **2025-08-15**: 8/14 강의 기반 가설검정·카이제곱 분석 대폭 확장 (22.04.01~22.04.02 실무가이드, 22.05.01~22.05.05 카이제곱 완전 시리즈)
 - **2025-08-13**: README 전면 개편(섹션 정리·중복 제거·WIP 체크박스 도입)
