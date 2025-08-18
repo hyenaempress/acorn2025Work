@@ -407,7 +407,7 @@ This repository is licensed under **CC BY-NC-SA 4.0**. See `LICENSE` for details
 
 - **Wiki**: https://github.com/hyenaempress/acorn2025Work/wiki
 - **실습 파일**: https://github.com/hyenaempress/acorn2025Work/tree/main/anal1
-
+- **RAG 기술과 발전 동향**https://nia.or.kr/site/nia_kor/ex/bbs/View.do?cbIdx=82618&bcIdx=27539&parentSeq=27539
 ---
 
 ## 🙏 Acknowledgments
