@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>설문 입력 폼</title>
+</head>
+<body>
+    <h1>설문 입력 폼</h1>
+    <form action="{% url 'survey_process' %}" method="post">{% csrf_token %} 
+        <table border="1" cellpadding="5">
+            <tr>
+                <td>귀하의 성별은?</td>
+                <td>
+                    <input type="radio" id="genM" name="gender" value="남" required> 남자
+                    <input type="radio" id="genF" name="gender" value="여" required> 여자
+                </td>
+            </tr>
+            <tr>
+                <td>귀하의 나이는?</td>
+                <td>
+                    <input type="radio" id="age10" name="age" value="10"> 10대
+                    <input type="radio" id="age20" name="age" value="20"> 20대
+                    <input type="radio" id="age30" name="age" value="30"> 30대
+                    <input type="radio" id="age40" name="age" value="40"> 40대
+                    <input type="radio" id="age50" name="age" value="50"> 50대
+                    <input type="radio" id="age60" name="age" value="60"> 60대
+                </td>
+            </tr>
+            <tr>
+                <td>귀하의 커피 브랜드 선호도는?</td>
+                <td>
+                    <input type="radio" id="brandS" name="co_survey" value="스타벅스" required> 스타벅스
+                    <input type="radio" id="brandC" name="co_survey" value="커피빈"> 커피빈
+                    <input type="radio" id="brandT" name="co_survey" value="투썸플레이스"> 투썸플레이스
+                    <input type="radio" id="brandB" name="co_survey" value="빽다방"> 빽다방
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="전송">
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
+
+

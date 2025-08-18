@@ -1,0 +1,38 @@
+<h1>설문 결과</h1>
+<table border="1" cellpadding="5">
+  <tr>
+    <th>번호</th><th>성별</th><th>나이</th><th>선호 브랜드</th>
+  </tr>
+  {% for s in surveys %}
+  <tr>
+    <td>{{ s.rnum }}</td>
+    <td>{{ s.gender }}</td>
+    <td>{{ s.age }}</td>
+    <td>{{ s.co_survey }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<hr>
+
+{% if crosstab %}
+  <h2>성별 × 브랜드 교차표</h2>
+  <table border="1" cellpadding="5">
+    <tr>
+      {% for h in crosstab.headers %}<th>{{ h }}</th>{% endfor %}
+    </tr>
+    {% for row in crosstab.rows %}
+    <tr>
+      {% for cell in row %}<td>{{ cell }}</td>{% endfor %}
+    </tr>
+    {% endfor %}
+    <tr>
+      <th>합계</th>
+      {% for t in crosstab.col_totals %}<td>{{ t }}</td>{% endfor %}
+    </tr>
+  </table>
+{% endif %}
+
+<h2>카이제곱 독립성 검정(α = {{ alpha }})</h2>
+<p>χ² = {{ chi2 }} / 자유도 = {{ dof }}</p>
+<p><b>{{ decision }}</b></p>
