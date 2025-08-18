@@ -95,3 +95,4 @@ def insertDataFunc(request):
         co_survey=co_survey,
     )
     return redirect('survey_result')    # ✅ 반환 보장
+
