@@ -46,7 +46,7 @@ plt.show()
 
 print('두 집단 평균: ', np.mean(tg1), ' vs. ', np.mean(tg2))
 # 761040  vs.  757331
-
+  
 # 정규성 검정
 print(len(tg1), ' ', len(tg2))
 print('tg1: pvalue:', stats.shapiro(tg1).pvalue) # tg1: pvalue: 0.056 > 0.05 정규성 만족

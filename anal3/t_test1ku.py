@@ -37,7 +37,6 @@ print('statistic:%.5f, pvalue: %.5f' % result) # statistic:-0.555, pvalue: 0.608
 # plt.show()
 # plt.close()
 
-
 print("---------------------------------------------------------------------------------")
 # 단일 모집단의 평균에 대한 가설검정(one samples t-test)
 # 실습2 - 단일 모집단의 평균에 대한 가설 검정
