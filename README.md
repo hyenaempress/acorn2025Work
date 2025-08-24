@@ -183,7 +183,7 @@ This repository is licensed under **CC BY-NC-SA 4.0**. See `LICENSE` for details
 - [22.11.02 최소제곱해를 선형 행렬 방정식으로 구하기](alnlnote/gide_note/22.11.02%20최소제곱해를%20선형%20행렬%20방정식으로%20구하기.md) ✅ **NEW**
 - [22.11.03 회귀분석 방법론 종합 비교](alnlnote/gide_note/22.11.03%20회귀분석%20방법론%20종합%20비교.md) ✅ **NEW**
 - [22.11.04 회귀분석 핵심 개념 완전 정리](alnlnote/gide_note/22.11.04%20회귀분석%20핵심%20개념%20완전%20정리.md) ✅ **NEW**
-
+- [22.11.05 통계-회귀분석 핵심내용 RPG](alnlnote/gide_note/22.11.05%20통계-회귀분석%20핵심내용%20RPG.md) ✅ **NEW**
 
 ### 14. 알고리즘 시리즈
 - [11. 알고리즘 기초](alnlnote/gide_note/11.%20알고리즘%20기초.md)
