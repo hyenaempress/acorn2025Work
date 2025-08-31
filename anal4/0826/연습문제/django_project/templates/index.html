@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>근무년수로 연봉 예측</title>
+    <script>
+    function predictSalary() {
+        const years = document.getElementById('years_of_service').value;
+        fetch("", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+            body: JSON.stringify({ years_of_service: years })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.salary !== undefined) {
+                document.getElementById('result').innerText = '예상 연봉: ' + data.salary + ' 만원';
+            } else {
+                document.getElementById('result').innerText = '예측 실패';
+            }
+        })
+        .catch(() => {
+            document.getElementById('result').innerText = '서버 오류';
+        });
+    }
+    </script>
+</head>
+<body>
+    <h2>근무년수로 연봉 예측</h2>
+    <input type="number" id="years_of_service" min="0" placeholder="근무년수 입력">
+    <button type="button" onclick="predictSalary()">예측하기</button>
+    <div id="result" style="margin-top:20px; font-size:24px;"></div>
+</body>
+</html>
